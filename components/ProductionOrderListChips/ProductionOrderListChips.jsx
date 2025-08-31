@@ -15,6 +15,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeflex/primeflex.css';
 import { Card } from 'primereact/card';
 import {formatDate} from '../../utilities/formatDate'
+import { useTranslation } from '../../utilities/i18n';
 
 const ProductionOrders = ({ type }) => {
   const [pOrders, setPOrders] = useState([]);
@@ -28,12 +29,13 @@ const ProductionOrders = ({ type }) => {
   const [group, setGroup] = useState(null)
   const [customerPOSearch, setCustomerPOSearch] = useState('');
   const toast = useRef(null);
+  const { t } = useTranslation();
 
   const statusOptions = [
-    { label: 'All', value: 'All' },
-    { label: 'Released', value: 'Released' },
-    { label: 'Open', value: 'Open' },
-    { label: 'Close', value: 'Close' },
+    { label: t('productionList.statusAll'), value: 'All' },
+    { label: t('productionList.statusReleased'), value: 'Released' },
+    { label: t('productionList.statusOpen'), value: 'Open' },
+    { label: t('productionList.statusClose'), value: 'Close' },
   ];
 
   useEffect(() => {
@@ -351,42 +353,42 @@ const ProductionOrders = ({ type }) => {
         <DataTable value={details} scrollable scrollHeight="200px" style={styles.expansionTable}>
           <Column
             field="CustomerPO"
-            header="Customer PO"
+            header={t('productionList.customerPO')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '30rem' }}
           />
           {/* <Column
             field="Status"
-            header="Status"
+            header={t('productionList.status')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '15rem' }}
           /> */}
           <Column
             field="ItemCode"
-            header="SKU"
+            header={t('productionList.sku')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           />
           <Column
             field="ProdName"
-            header="Product Description"
+            header={t('productionList.productDescription')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '60rem' }}
           />
           <Column
             field="DocNum"
-            header="Origin POs"
+            header={t('productionList.originPOs')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '15rem' }}
           />
           <Column
             field="PlannedQty"
-            header="Planned Quantity"
+            header={t('productionOrder.plannedQuantity')}
             body={(rowData) => parseFloat(rowData.PlannedQty).toFixed(0)}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
@@ -394,35 +396,35 @@ const ProductionOrders = ({ type }) => {
           />
           {/* <Column
             body={infoMixes}
-            header="Mixes"
+            header={t('productionList.mixes')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '10rem' }}
           /> */}
           <Column
             body={infoPallets}
-            header="Pallets"
+            header={t('productionList.pallets')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '10rem' }}
           />
           {/* <Column
             body={dateTemplate}
-            header="Started Date"
+            header={t('productionList.startedDate')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           />
           <Column
             body={dateTemplateFinish}
-            header="Finish Date"
+            header={t('productionList.finishDate')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           /> */}
           <Column
             body={dateTemplateDelivery}
-            header="Delivery Date"
+            header={t('productionList.deliveryDate')}
             headerStyle={styles.expansionTableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
@@ -437,33 +439,33 @@ const ProductionOrders = ({ type }) => {
       <Card>
         <Toast ref={toast} />
         <div style={styles.header}>
-          <h1 style={styles.title}>{type} Production Orders</h1>
+          <h1 style={styles.title}>{t('menu.chips')} {t('productionList.orders')}</h1>
           <div style={styles.controls}>
             <Dropdown
               value={statusFilter}
               options={statusOptions}
               onChange={onStatusChange}
-              placeholder="Select a Status"
+              placeholder={t('productionList.selectStatus')}
               style={styles.dropdown}
             />
             <InputText
               type="text"
               value={customerPOSearch}
               onChange={onCustomerPOSearchChange}
-              placeholder="Search by Customer PO"
+              placeholder={t('productionList.searchCustomerPO')}
               style={styles.searchBox}
             />
             {group === 'Y' &&
-            < >
+            <>
             <Button
-              label="Group"
+              label={t('productionList.group')}
               onClick={handleProduceClick}
               disabled={selectedOrders.length === 0 || selectedOrders.some(order => order.Group !== null)}
               style={styles.groupButton}
             />
             <span>   </span>
             <Button
-              label="Ungroup"
+              label={t('productionList.ungroup')}
               onClick={handleUngroupClick}
               disabled={selectedOrders.length === 0 || selectedOrders.every(order => order.Group === null)} // Deshabilitar si no hay órdenes agrupadas
               style={styles.ungroupButton}
@@ -503,42 +505,42 @@ const ProductionOrders = ({ type }) => {
 
           <Column
             body={linkTemplate}
-            header="Customer PO"
+            header={t('productionList.customerPO')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '30rem' }}
           />
           <Column
             field="Status"
-            header="Status"
+            header={t('productionList.status')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '15rem' }}
           />
           <Column
             field="ItemCode"
-            header="SKU"
+            header={t('productionList.sku')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           />
           <Column
             field="ProdName"
-            header="Product Description"
+            header={t('productionList.productDescription')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '60rem' }}
           />
           <Column
             field="DocNum"
-            header="Origin POs"
+            header={t('productionList.originPOs')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '15rem' }}
           />
           <Column
             field="PlannedQty"
-            header="Planned Quantity"
+            header={t('productionOrder.plannedQuantity')}
             body={(rowData) => `${parseFloat(rowData.PlannedQty).toFixed(0)} ${rowData.SalUnitMsr}`}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody1}
@@ -546,35 +548,35 @@ const ProductionOrders = ({ type }) => {
           />
           <Column
             body={infoMixes}
-            header="Mixes"
+            header={t('productionList.mixes')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '10rem' }}
           />
           {/* <Column
             body={infoPallets}
-            header="Pallets"
+            header={t('productionList.pallets')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '10rem' }}
           /> */}
           <Column
             body={dateTemplate}
-            header="Started Date"
+            header={t('productionList.startedDate')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           />
           <Column
             body={dateTemplateFinish}
-            header="Finish Date"
+            header={t('productionList.finishDate')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}
           />
           <Column
             body={dateTemplateDelivery}
-            header="Delivery Date"
+            header={t('productionList.deliveryDate')}
             headerStyle={styles.tableHeader}
             bodyStyle={styles.tableBody}
             style={{ width: '20rem' }}

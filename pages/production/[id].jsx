@@ -865,7 +865,7 @@ else
   return (
     <div>
       <Toast ref={toast} position="top-right" style={{ marginTop: '60px', zIndex: 9999 }} />
-      <Card title={<span><BackButton /> Production Order </span>} className="p-card">
+      <Card title={<span><BackButton /> {t('productionOrder.title')} </span>} className="p-card">
       {loadingStart && (
                     <div className="p-d-flex p-jc-center p-ai-center" style={{ marginTop: '1rem' }}>
                         <ProgressSpinner style={{ width: '50px', height: '50px' }} />
@@ -983,21 +983,21 @@ else
           </div>)}
         </div>
       </Card>
-      <Card title="Components" className="p-card p-mt-3">
+      <Card title={t('productionOrder.components')} className="p-card p-mt-3">
         <div className="p-datatable-wrapper">
           <DataTable value={order} paginator rows={10} scrollable scrollHeight="400px">
-            {/* <Column field="Type" header="Type" /> */}
-            <Column field="ItemCode2" header="Product" />
-            <Column field="ItemName" header="Description" />
+            {/* <Column field="Type" header={t('productionOrder.type')} /> */}
+            <Column field="ItemCode2" header={t('productionOrder.product')} />
+            <Column field="ItemName" header={t('productionOrder.description')} />
             {/* {allItems &&<Column field="Und" header="Und" />} */}
-            <Column field="BaseQtyLine" header="Base Quantity" body={(rowData) => formatNumber(parseFloat(rowData.BaseQtyLine))} />
-            <Column field="PlannedQtyLine" header="Planned" body={(rowData) => formatNumber(parseFloat(rowData.PlannedQtyLine))} />
+            <Column field="BaseQtyLine" header={t('productionOrder.baseQuantity')} body={(rowData) => formatNumber(parseFloat(rowData.BaseQtyLine))} />
+            <Column field="PlannedQtyLine" header={t('productionOrder.planned')} body={(rowData) => formatNumber(parseFloat(rowData.PlannedQtyLine))} />
 
             {/* <Column field="Available" header="Available" body={(rowData) => parseFloat(rowData.Available).toFixed(3)} /> */}
-            {!allItems && <Column field="QtyChildrenCmpl" header="Produced" body={(rowData) => formatNumber(parseFloat(rowData.QtyChildrenCmpl || 0))} />}
-            <Column field="IssuedQty" header="Issued" body={(rowData) => formatNumber(parseFloat(rowData.IssuedQty))} />
-            {!allItems && <Column field="POChildrenDocNum" header="Child PO" />}
-            {!allItems && <Column body={actionTemplate} header="Actions" />}
+            {!allItems && <Column field="QtyChildrenCmpl" header={t('productionOrder.produced')} body={(rowData) => formatNumber(parseFloat(rowData.QtyChildrenCmpl || 0))} />}
+            <Column field="IssuedQty" header={t('productionOrder.issued')} body={(rowData) => formatNumber(parseFloat(rowData.IssuedQty))} />
+            {!allItems && <Column field="POChildrenDocNum" header={t('productionOrder.childPO')} />}
+            {!allItems && <Column body={actionTemplate} header={t('productionOrder.actions')} />}
 
 
           </DataTable>

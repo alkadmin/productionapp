@@ -11,6 +11,15 @@
   "success": "Success",
   "error": "Error",
   "tortillas": "Tortillas",
+  "menu": {
+    "chips": "Chips",
+    "varietyPack": "Variety Pack",
+    "waste": "Waste",
+    "downTime": "DownTime",
+    "reportTortillas": "Report Tortillas",
+    "production": "Production",
+    "session": "Session"
+  },
   "warningDialog": {
     "title": "Warning!",
     "cancel": "Cancel",
@@ -96,7 +105,8 @@
     "childPO": "Child PO",
     "actions": "Actions",
     "produce": "Produce",
-    "issue": "Issue"
+    "issue": "Issue",
+    "produced": "Produced"
   },
   "productionPage": {
     "finalizeConfirmation": "Are you sure you want to finalize the production? Once the Production Order is closed, you will no longer be able to add new mixes or receive finished goods. If you agree, click OK; otherwise, click Cancel",
@@ -134,6 +144,8 @@
     "statusAll": "All",
     "statusReleased": "Released",
     "statusOpen": "Open",
-    "statusClose": "Close"
+    "statusClose": "Close",
+    "group": "Group",
+    "ungroup": "Ungroup"
   }
 }

@@ -11,6 +11,15 @@
   "success": "Éxito",
   "error": "Error",
   "tortillas": "Tortillas",
+  "menu": {
+    "chips": "Chips",
+    "varietyPack": "Variety Pack",
+    "waste": "Desperdicio",
+    "downTime": "Tiempo Muerto",
+    "reportTortillas": "Reporte de Tortillas",
+    "production": "Producción",
+    "session": "Sesión"
+  },
   "warningDialog": {
     "title": "¡Advertencia!",
     "cancel": "Cancelar",
@@ -96,7 +105,8 @@
     "childPO": "Orden Hija",
     "actions": "Acciones",
     "produce": "Producir",
-    "issue": "Emitir"
+    "issue": "Emitir",
+    "produced": "Producido"
   },
   "productionPage": {
     "finalizeConfirmation": "¿Estás seguro de que deseas finalizar la producción? Una vez que la Orden de Producción esté cerrada, ya no podrás agregar nuevas mezclas ni recibir productos terminados. Si estás de acuerdo, haz clic en OK; de lo contrario, haz clic en Cancelar",
@@ -134,6 +144,8 @@
     "statusAll": "Todos",
     "statusReleased": "Liberado",
     "statusOpen": "Abierto",
-    "statusClose": "Cerrado"
+    "statusClose": "Cerrado",
+    "group": "Agrupar",
+    "ungroup": "Desagrupar"
   }
 }
