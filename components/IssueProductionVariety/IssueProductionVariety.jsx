@@ -15,6 +15,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import { Card } from 'primereact/card';
 import formatNumber from '../../utilities/formatNumber';
 import { formatDate } from '../../utilities/formatDate';
+import { useTranslation } from '../../utilities/i18n';
 const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, chips, chips1, ParentOrKid, Variety }) => {
     const BASE_URL = process.env.NEXT_PUBLIC_API_UR;
     const [formData, setFormData] = useState({ wetTime: '', dryTime: '', rows: [] });
@@ -25,6 +26,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
 
     const [loading, setLoading] = useState(false);
     const toast = useRef(null);
+    const { t } = useTranslation();
     const [shift, setShift] = useState(localStorage.getItem("shift"));
     const [line, setLine] = useState(localStorage.getItem("line"));
     const [docEntries, setDocEntries] = useState(null);
@@ -812,8 +814,8 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             if (item.batch === 'Y' && item.lotNumbers.some((lot) => parseFloat(lot.quantity) === 0 || !lot.quantity)) {
                 toast.current.show({
                     severity: 'warn',
-                    summary: 'Warning',
-                    detail: 'Lot quantities cannot be zero.',
+                    summary: t('warning'),
+                    detail: t('issueProductionVariety.lotQtyZero'),
                 });
                 valid = false;
             }
@@ -821,8 +823,8 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             if (parseFloat(item.real) == 0 || !item.real) {
                 toast.current.show({
                     severity: 'warn',
-                    summary: 'Warning',
-                    detail: 'The quantities cannot be zero.',
+                    summary: t('warning'),
+                    detail: t('issueProductionVariety.qtyZero'),
                 });
                 valid = false;
             }
@@ -830,8 +832,8 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             if (parseFloat(item.real) > totalLotQuantity && totalLotQuantity != 0 && item.batch === 'Y') {
                 toast.current.show({
                     severity: 'warn',
-                    summary: 'Warning',
-                    detail: 'The quantity cannot exceed the total available in the selected lots.',
+                    summary: t('warning'),
+                    detail: t('issueProductionVariety.exceedAvailable'),
                 });
                 valid = false;
             }
@@ -839,8 +841,8 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             if (item.batch === 'Y' && item.lotNumbers.some((lot) => !lot.lotNumber)) {
                 toast.current.show({
                     severity: 'warn',
-                    summary: 'Warning',
-                    detail: 'All batch items must have a selected lot.',
+                    summary: t('warning'),
+                    detail: t('issueProductionVariety.lotRequired'),
                 });
                 valid = false;
             }
@@ -943,7 +945,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
         console.log(pallet)
         if (!validateQuantities()) return;
         if ((!formData.wetTime || !formData.dryTime) && !data[0]?.ProduccionGO && ParentOrKid === 'Kid') {
-            toast.current.show({ severity: 'warn', summary: 'Warning', detail: 'Wet Mix Time and Dry Mix Time are required.' });
+            toast.current.show({ severity: 'warn', summary: t('warning'), detail: t('issueProductionVariety.mixTimesRequired') });
             return;
         }
 
@@ -1042,7 +1044,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                     .then(result => {
 
                         if (result.Result === 'SUCCESS') {
-                            toast.current.show({ severity: 'success', summary: 'Success', detail: result.Message });
+                            toast.current.show({ severity: 'success', summary: t('success'), detail: result.Message });
                             addOrderToSession(parentEntry);
 
                             console.log(data[0]?.ProduccionGO)
@@ -1065,12 +1067,12 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
 
                             }
                         } else {
-                            toast.current.show({ severity: 'error', summary: 'Error', detail: result.Message });
+                            toast.current.show({ severity: 'error', summary: t('error'), detail: result.Message });
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        toast.current.show({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred' });
+                        toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionInfo.unknownError') });
                     });
             });
 
@@ -1125,7 +1127,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                 const result = await response.json();
 
                 if (response.ok) {
-                    toast.current.show({ severity: 'success', summary: 'Success', detail: result.Message });
+                    toast.current.show({ severity: 'success', summary: t('success'), detail: result.Message });
                     addOrderToSession(parentEntry);
                     console.log(data[0]?.Type)
                     if (!data[0]?.ProduccionGO && data[0]?.ParentOrKid === 'Kid') {
@@ -1142,19 +1144,19 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                         const receiptResponse = await receiptResult.json();
 
                         if (receiptResult.ok) {
-                            toast.current.show({ severity: 'success', summary: 'Success', detail: receiptResponse.Message });
+                            toast.current.show({ severity: 'success', summary: t('success'), detail: receiptResponse.Message });
                         } else {
-                            toast.current.show({ severity: 'error', summary: 'Error', detail: receiptResponse.Message });
+                            toast.current.show({ severity: 'error', summary: t('error'), detail: receiptResponse.Message });
                         }
                     }
                     onHide(false);
                     onSave(true);
                 } else {
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: result.Message });
+                    toast.current.show({ severity: 'error', summary: t('error'), detail: result.Message });
                 }
             } catch (error) {
                 console.error('Error:', error);
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred' });
+                toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionInfo.unknownError') });
             }
         }
 
@@ -1236,7 +1238,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
 
             if (response.ok) {
                 console.log("aqui")
-                toast.current.show({ severity: 'success', summary: 'Success', detail: result.Message });
+                toast.current.show({ severity: 'success', summary: t('success'), detail: result.Message });
                 addOrderToSession(parentEntry);
 
                 if (!data[0].ProduccionGO) {
@@ -1253,19 +1255,19 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                     const receiptResponse = await receiptResult.json();
 
                     if (receiptResult.ok) {
-                        toast.current.show({ severity: 'success', summary: 'Success', detail: receiptResponse.Message });
+                        toast.current.show({ severity: 'success', summary: t('success'), detail: receiptResponse.Message });
                     } else {
-                        toast.current.show({ severity: 'error', summary: 'Error', detail: receiptResponse.Message });
+                        toast.current.show({ severity: 'error', summary: t('error'), detail: receiptResponse.Message });
                     }
                 } else {
                     onHide(true, true);
                 }
             } else {
-                toast.current.show({ severity: 'error', summary: 'Error', detail: result.Message });
+                toast.current.show({ severity: 'error', summary: t('error'), detail: result.Message });
             }
         } catch (error) {
             console.error('Error:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurred' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionInfo.unknownError') });
         } finally {
             setLoading(false);
         }
@@ -1416,16 +1418,16 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             <div className="flex flex-wrap gap-3">
                 <div className="flex align-items-center">
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <label>Dry Mix Time:</label>
-                        <InputText value={formData.dryTime} onChange={(e) => onInputChange(e, null, 'dryTime')} type="number" step="0.01" placeholder="time" style={{ width: '7rem', fontSize: '12px' }} required />
-                        <span className="p-inputgroup-addon">{"min"}</span>
+                        <label>{t('issueProductionVariety.dryMixTime')}</label>
+                        <InputText value={formData.dryTime} onChange={(e) => onInputChange(e, null, 'dryTime')} type="number" step="0.01" placeholder={t('issueProductionVariety.timePlaceholder')} style={{ width: '7rem', fontSize: '12px' }} required />
+                        <span className="p-inputgroup-addon">{t('issueProductionVariety.minutes')}</span>
                     </div>
                 </div>
                 <div className="flex align-items-center">
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <label>Wet Mix Time:</label>
-                        <InputText value={formData.wetTime} onChange={(e) => onInputChange(e, null, 'wetTime')} type="number" step="0.01" placeholder="time" style={{ width: '7rem', fontSize: '12px' }} required />
-                        <span className="p-inputgroup-addon">{"min"}</span>
+                        <label>{t('issueProductionVariety.wetMixTime')}</label>
+                        <InputText value={formData.wetTime} onChange={(e) => onInputChange(e, null, 'wetTime')} type="number" step="0.01" placeholder={t('issueProductionVariety.timePlaceholder')} style={{ width: '7rem', fontSize: '12px' }} required />
+                        <span className="p-inputgroup-addon">{t('issueProductionVariety.minutes')}</span>
                     </div>
                 </div>
 
@@ -1438,14 +1440,14 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
     const footer = (
         <div className="p-d-flex p-jc-end">
 
-            <Button label="Cancel" icon="pi pi-times" className="p-button-danger p-mr-2" onClick={() => onHide(false, false)} />
-            {!pallet && <Button label="Save" icon="pi pi-check"
+            <Button label={t('productionInfo.cancel')} icon="pi pi-times" className="p-button-danger p-mr-2" onClick={() => onHide(false, false)} />
+            {!pallet && <Button label={t('productionInfo.save')} icon="pi pi-check"
                 className="p-button-success"
                 onClick={handleSave}
                 disabled={loading} />}
             {pallet === 'Y' && (
                 <Button
-                    label="Pallet"
+                    label={t('productionList.pallets')}
                     icon="pi pi-check"
                     className="p-button-success"
                     onClick={handleAddPallet}
@@ -1460,15 +1462,15 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
         <div className="flex flex-wrap gap-3">
             <div className="flex align-items-center">
                 <RadioButton inputId="Full" name="mix" value="Full" onChange={(e) => setMixType(e.value)} checked={mixType === 'Full'} />
-                <label htmlFor="Full" className="ml-2">Full</label>
+                <label htmlFor="Full" className="ml-2">{t('issueProductionVariety.full')}</label>
             </div>
             <div className="flex align-items-center">
                 <RadioButton inputId="Half" name="mix" value="Half" onChange={(e) => setMixType(e.value)} checked={mixType === 'Half'} />
-                <label htmlFor="Half" className="ml-2">Half</label>
+                <label htmlFor="Half" className="ml-2">{t('issueProductionVariety.half')}</label>
             </div>
             {(chips || chips1 === 'CHIPS') && <div className="flex align-items-center">
                 <RadioButton inputId="Double" name="mix" value="Double" onChange={(e) => setMixType(e.value)} checked={mixType === 'Double'} />
-                <label htmlFor="Double" className="ml-2">Double</label>
+                <label htmlFor="Double" className="ml-2">{t('issueProductionVariety.double')}</label>
             </div>}
 
         </div>
@@ -1479,7 +1481,7 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
             <Toast ref={toast} position="top-right" style={{ marginTop: '60px', zIndex: 9999 }} />
             <Dialog header={
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span>Issue Components</span>
+                    <span>{t('issueProductionVariety.issueComponents')}</span>
                     {loading && <ProgressSpinner style={{ width: '40px', height: '40px' }} />}
                 </div>
             } maximizable visible={visible} onHide={() => onHide(false)} footer={footer} className="good-issue-dialog" style={{ width: '80vw' }} >
@@ -1487,12 +1489,12 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                 {!pallet && ParentOrKid == 'Kid' && <div>{mix}</div>}
                 <Card>
                     <DataTable value={formData.rows} >
-                        <Column field="product" header="Product" />
-                        <Column field="description" header="Description" />
-                        <Column field="base" header="Base" />
+                        <Column field="product" header={t('productionOrder.product')} />
+                        <Column field="description" header={t('productionOrder.description')} />
+                        <Column field="base" header={t('productionOrder.baseQuantity')} />
                         <Column
                             field="real"
-                            header="Real"
+                            header={t('issueProductionVariety.real')}
                             body={(rowData, rowIndex) => (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <InputText
@@ -1500,14 +1502,14 @@ const IssueProduction = ({ visible, onHide, data, pallet, onSave, parentEntry, c
                                         onChange={(e) => onInputChange(e, rowIndex.rowIndex, 'real')}
                                         type="number"
                                         step="0.01"
-                                        placeholder="Quantity"
+                                        placeholder={t('issueProductionVariety.quantity')}
                                         style={{ width: '7rem', fontSize: '12px' }}
                                     />
                                     <span className="p-inputgroup-addon">{formData.rows[0]?.Und || ''}</span>
                                 </div>
                             )}
                         />
-                        <Column field="lotNumbers" header="  Lot Info" body={(rowData, rowIndex) => (rowData.batch === 'Y' ? lotTemplate(rowData, rowIndex.rowIndex) : '')} />
+                        <Column field="lotNumbers" header={t('issueProductionVariety.lotInfo')} body={(rowData, rowIndex) => (rowData.batch === 'Y' ? lotTemplate(rowData, rowIndex.rowIndex) : '')} />
                         {/* <Column body={(rowData, rowIndex) => (rowData.batch === 'Y' ? <Button label="" icon="pi pi-plus" className="p-button-secondary" onClick={() => addLot(rowIndex.rowIndex)} /> : '')} /> */}
                     </DataTable>
                     {!pallet && ParentOrKid == 'Kid' && <div>{times}</div>}

@@ -14,11 +14,13 @@ import uniqueCodePallet from '../../utilities/unique';
 //bacth logic
 
 import batchId from '../../utilities/batchid'
+import { useTranslation } from '../../utilities/i18n';
 
 const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
 
     const BASE_URL = process.env.NEXT_PUBLIC_API_UR;
     const API = process.env.API
+    const { t } = useTranslation();
 
     const [inputBatch, setiInputBatch] = useState('');
     const [inputBestBefore, setInputBestBefore] = useState('');
@@ -156,7 +158,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
                 setBinLocations(formattedBins);
             } catch (error) {
                 console.error('Error fetching bin locations:', error);
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to fetch bin locations' });
+                toast.current.show({ severity: 'error', summary: t('error'), detail: t('receiptProductionVariety.failedBinLocations') });
             }
         }
     };
@@ -225,7 +227,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
             return doughReceptionPayload;
         } catch (error) {
             console.error('Error fetching dough reception data:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to fetch dough reception data' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('receiptProductionVariety.failedDoughReception') });
         }
     };
 
@@ -345,7 +347,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
         if (!inputBatch) { 
 
            
-            toast.current.show({ severity: 'error', summary: 'Missing Data', detail: 'Batch number is required. Please set it before proceeding.' });
+            toast.current.show({ severity: 'error', summary: t('receiptProductionVariety.missingData'), detail: t('receiptProductionVariety.batchRequired') });
             setLoading(false);
             return; 
         }
@@ -355,7 +357,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
         if (!inputBestBefore) { 
 
            
-            toast.current.show({ severity: 'error', summary: 'Missing Data', detail: 'BestBefore is required. Please set it before proceeding.' });
+            toast.current.show({ severity: 'error', summary: t('receiptProductionVariety.missingData'), detail: t('receiptProductionVariety.bestBeforeRequired') });
             setLoading(false);
             return; 
         }
@@ -395,7 +397,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
                 console.log(pallets)
                 await postDocument(`${BASE_URL}/Production/PostArtSNPallets`, pallets, token, 'Pallet');
 
-                toast.current.show({ severity: 'success', summary: 'Success', detail: 'All documents created successfully' });
+                toast.current.show({ severity: 'success', summary: t('success'), detail: t('receiptProductionVariety.documentsCreated') });
                 onHide();
                 setFormData({
                     warehouse: data.warehouse,
@@ -420,10 +422,10 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
             else if (data.ProduccionGO !== 'Y') {
 
                 if (!receiptResult) {
-                    toast.current.show({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurblack' });
+                    toast.current.show({ severity: 'error', summary: t('error'), detail: t('receiptProductionVariety.unexpectedError') });
                 }
                 else {
-                    toast.current.show({ severity: 'success', summary: 'Success', detail: 'All documents created successfully' });
+                    toast.current.show({ severity: 'success', summary: t('success'), detail: t('receiptProductionVariety.documentsCreated') });
                     onHide();
                    
 
@@ -449,7 +451,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
             }
         } catch (error) {
             console.error('Error:', error);
-            toast?.current?.show({ severity: 'error', summary: 'Error', detail: 'An unexpected error occurblack' });
+            toast?.current?.show({ severity: 'error', summary: t('error'), detail: t('receiptProductionVariety.unexpectedError') });
         } finally {
             setLoading(false);
         }
@@ -470,7 +472,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
 
             if (!response.ok) {
                 console.log(result)
-                toast.current.show({ severity: 'error', summary: `${docType} Error`, detail: result.Message });
+                toast.current.show({ severity: 'error', summary: `${docType} ${t('error')}`, detail: result.Message });
                 return null;
             }
 
@@ -479,7 +481,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
            
         } catch (error) {
             console.error(`Error creating ${docType}:`, error);
-            toast.current.show({ severity: 'error', summary: `${docType} Error`, detail: 'An unexpected error occurblack' });
+            toast.current.show({ severity: 'error', summary: `${docType} ${t('error')}`, detail: t('receiptProductionVariety.unexpectedError') });
             return null;
         }
     };
@@ -558,7 +560,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
     const footer = (
         <div >
             {/* <Button label="Cancel" icon="pi pi-times" className="p-button-danger p-mr-2" onClick={onHide} /> */}
-            <Button label="Save & Print" icon="pi pi-check"
+            <Button label={t('receiptProductionVariety.savePrint')} icon="pi pi-check"
                 className="p-button-success"
                 style={{ marginLeft: '0.5em' }}
                 onClick={handleSubmit}
@@ -568,7 +570,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
     return (
         <>
             <Toast ref={toast} position="top-right" style={{ marginTop: '60px', zIndex: 9999 }} />
-            <Dialog header="Product Reception" visible={visible} onHide={onHide} footer={footer} closable={false} style={{ width: '80vh' }}>
+            <Dialog header={t('receiptProductionVariety.productReception')} visible={visible} onHide={onHide} footer={footer} closable={false} style={{ width: '80vh' }}>
                 <Card>
                     <div className="p-fluid">
                         {loading && (
@@ -579,12 +581,12 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
                         <div className='final-product' style={styles.productInfo}>
                             <div className="p-grid p-align-center" style={{ 'display': 'flex' }}>
                                 <div className="p-col-4 p-md-2" style={styles.labelColumn}>
-                                    <label htmlFor="po" style={styles.label}>PO: </label>
-                                    <label htmlFor="sku" style={styles.label}>SKU: </label>
-                                    <label htmlFor="lot" style={styles.label}>LOT: </label>
-                                    <label htmlFor="bestBefore" style={styles.label}>BEST BEFORE: </label>
-                                    <label htmlFor="palletX" style={styles.label}>No PALLETS: </label>
-                                    <label htmlFor="casePerPallet" style={styles.label}>CASES PER PALLET: </label>
+                                    <label htmlFor="po" style={styles.label}>{t('receiptProductionVariety.po')}: </label>
+                                    <label htmlFor="sku" style={styles.label}>{t('receiptProductionVariety.sku')}: </label>
+                                    <label htmlFor="lot" style={styles.label}>{t('receiptProductionVariety.lot')}: </label>
+                                    <label htmlFor="bestBefore" style={styles.label}>{t('receiptProductionVariety.bestBefore')}: </label>
+                                    <label htmlFor="palletX" style={styles.label}>{t('receiptProductionVariety.noPallets')}: </label>
+                                    <label htmlFor="casePerPallet" style={styles.label}>{t('receiptProductionVariety.casesPerPallet')}: </label>
                                 </div>
                                 <div className="p-col-8 p-md-10" style={styles.valueColumn}>
                                     <InputText disabled style={styles.text} value={data?.PO || ''} />
