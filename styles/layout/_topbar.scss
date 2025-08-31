@@ -176,3 +176,17 @@
 .header-item {
     margin-right: 10px; /* Ajusta el espaciado entre los elementos */
 }
+
+.language-selector {
+    width: 4rem;
+
+    .p-dropdown {
+        background: var(--surface-card);
+        border: 1px solid var(--surface-border);
+        color: var(--text-color);
+    }
+
+    .p-dropdown-trigger {
+        color: var(--primary-color);
+    }
+}
