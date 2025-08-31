@@ -292,7 +292,7 @@
     "errorSendingPallets": "Error al enviar los Pallets.",
     "allDocsSuccess": "Todos los documentos fueron creados correctamente.",
     "unexpectedError": "Ocurrió un error inesperado."
-
+  },
 
   "report": {
     "typeLabels": {
@@ -330,8 +330,9 @@
       "effectiveDate": "Fecha Efectiva",
       "confidential": "Confidencial"
     }
+  },
 
-  "waste": {
+    "waste": {
     "title": "Registro de Desperdicio",
     "reason": "Motivo",
     "remarks": "Comentarios",
