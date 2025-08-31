@@ -9,12 +9,13 @@ import { Toast } from 'primereact/toast';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Dropdown } from 'primereact/dropdown';
 import { Card } from 'primereact/card';
-import { logEvent } from '../../utilities/log'; 
+import { logEvent } from '../../utilities/log';
 ////pallet id//
 import uniqueCodePallet from '../../utilities/unique';
 //bacth logic
 
 import batchId from '../../utilities/batchid'
+import { useTranslation } from '../../utilities/i18n';
 
 const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
 
@@ -52,6 +53,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
     const [binLocations, setBinLocations] = useState([]);
     const [loading, setLoading] = useState(false);
     const toast = useRef(null);
+    const { t } = useTranslation();
     const [remaining, setRemaining] = useState('')
     const [totalPallets, setTotalPallets] = useState('')
     const [shift, setShift] = useState(localStorage.getItem("shift"))
@@ -141,7 +143,7 @@ const ReceiptProduction = ({ data, visible, onHide, numPallet }) => {
                 setBinLocations(formattedBins);
             } catch (error) {
                 console.error('Error fetching bin locations:', error);
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to fetch bin locations' });
+                toast.current.show({ severity: 'error', summary: t('error'), detail: t('receiptProduction.errorFetchBinLocations') });
             }
         }
     };
@@ -246,11 +248,11 @@ console.log(documentLines)
           return doughReceptionPayload;
         } catch (error) {
           console.error('Error fetching dough reception data:', error);
-          toast.current.show({
+            toast.current.show({
             severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to fetch dough reception data'
-          });
+            summary: t('error'),
+            detail: t('receiptProduction.errorFetchDough')
+            });
         }
       };
       
@@ -425,7 +427,7 @@ console.log(documentLines)
     
             // Verify if Receipt was created successfully
             if (!receiptResult || !receiptResult.DocEntry) {
-                throw new Error('Error creating the Receipt.');
+                throw new Error(t('receiptProduction.errorCreatingReceipt'));
             }
     
             // If ProduccionGO is 'Y', proceed with Issue and other documents
@@ -458,7 +460,7 @@ console.log(documentLines)
     
                 // Verify if Issue was created successfully
                 if (!issueResult || !issueResult.DocEntry) {
-                    throw new Error('Error creating the Issue.');
+                throw new Error(t('receiptProduction.errorCreatingIssue'));
                 }
     
                 // Create and send the Dough Reception Issue
@@ -489,7 +491,7 @@ console.log(documentLines)
     
                 // Verify if Dough Reception Issue was created successfully
                 if (!issueResultDought || !issueResultDought.DocEntry) {
-                    throw new Error('Error creating the Dough Reception Issue.');
+                throw new Error(t('receiptProduction.errorCreatingDough'));
                 }
     
                 // Create and send the Finished Good Receipt
@@ -518,7 +520,7 @@ console.log(documentLines)
     
                 // Verify if Finished Good Receipt was created successfully
                 if (!finishGoodResult || !finishGoodResult.DocEntry) {
-                    throw new Error('Error creating the Finished Good Receipt.');
+                throw new Error(t('receiptProduction.errorCreatingFinished'));
                 }
     
                 // Send the Pallets
@@ -546,12 +548,12 @@ console.log(documentLines)
     
                 // Verify if Pallets were created successfully
                 if (!palletsResult) {
-                    throw new Error('Error sending the Pallets.');
+                throw new Error(t('receiptProduction.errorSendingPallets'));
                 }
             }
     
             // Show success message and reset the form
-            toast.current.show({ severity: 'success', summary: 'Success', detail: 'All documents were created successfully.' });
+            toast.current.show({ severity: 'success', summary: t('success'), detail: t('receiptProduction.allDocsSuccess') });
             onHide();
             resetFormData();
     
@@ -564,7 +566,7 @@ console.log(documentLines)
                 error: error.message || error
             }, 'error');
     
-            toast?.current?.show({ severity: 'error', summary: 'Error', detail: error.message || 'An unexpected error occurred.' });
+            toast?.current?.show({ severity: 'error', summary: t('error'), detail: error.message || t('receiptProduction.unexpectedError') });
         } finally {
             setLoading(false);
         }
@@ -708,14 +710,14 @@ const resetFormData = () => {
 
             if (!response.ok) {
                 console.log(result)
-                toast.current.show({ severity: 'error', summary: `${docType} Error`, detail: result.Message });
+                toast.current.show({ severity: 'error', summary: t('error'), detail: result.Message });
                 return null;
             }
 
             return result;
         } catch (error) {
             console.error(`Error creating ${docType}:`, error);
-            toast.current.show({ severity: 'error', summary: `${docType} Error`, detail: 'An unexpected error occurblack' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('receiptProduction.unexpectedError') });
             return null;
         }
     };
@@ -794,7 +796,7 @@ const resetFormData = () => {
     const footer = (
         <div >
             {/* <Button label="Cancel" icon="pi pi-times" className="p-button-danger p-mr-2" onClick={onHide} /> */}
-            <Button label="Save & Print" icon="pi pi-check"
+            <Button label={t('receiptProduction.savePrint')} icon="pi pi-check"
                 className="p-button-success"
                 style={{ marginLeft: '0.5em' }}
                 onClick={handleSubmit}
@@ -804,7 +806,7 @@ const resetFormData = () => {
     return (
         <>
             <Toast ref={toast} position="top-right" style={{ marginTop: '60px', zIndex: 9999 }} />
-            <Dialog header="Product Reception" visible={visible} onHide={onHide} footer={footer} closable={false} style={{ width: '80vh' }}>
+            <Dialog header={t('receiptProduction.title')} visible={visible} onHide={onHide} footer={footer} closable={false} style={{ width: '80vh' }}>
                 <Card>
                     <div className="p-fluid">
                         {loading && (
@@ -815,12 +817,12 @@ const resetFormData = () => {
                         <div className='final-product' style={styles.productInfo}>
                             <div className="p-grid p-align-center" style={{ 'display': 'flex' }}>
                                 <div className="p-col-4 p-md-2" style={styles.labelColumn}>
-                                    <label htmlFor="po" style={styles.label}>PO: </label>
-                                    <label htmlFor="sku" style={styles.label}>SKU: </label>
-                                    <label htmlFor="lot" style={styles.label}>LOT: </label>
-                                    <label htmlFor="bestBefore" style={styles.label}>BEST BEFORE: </label>
-                                    <label htmlFor="palletX" style={styles.label}>No PALLETS: </label>
-                                    <label htmlFor="casePerPallet" style={styles.label}>CASES PER PALLET: </label>
+                                    <label htmlFor="po" style={styles.label}>{t('receiptProduction.po')}</label>
+                                    <label htmlFor="sku" style={styles.label}>{t('receiptProduction.sku')}</label>
+                                    <label htmlFor="lot" style={styles.label}>{t('receiptProduction.lot')}</label>
+                                    <label htmlFor="bestBefore" style={styles.label}>{t('receiptProduction.bestBefore')}</label>
+                                    <label htmlFor="palletX" style={styles.label}>{t('receiptProduction.noPallets')}</label>
+                                    <label htmlFor="casePerPallet" style={styles.label}>{t('receiptProduction.casesPerPallet')}</label>
                                 </div>
                                 <div className="p-col-8 p-md-10" style={styles.valueColumn}>
                                     <InputText disabled style={styles.text} value={data?.PO || ''} />

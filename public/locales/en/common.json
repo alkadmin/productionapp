@@ -177,6 +177,63 @@
     "loadError": "Could not load downtime info"
   },
 
+  "issues": {
+    "title": "Production Issues Seasoning",
+    "dateTime": "Date & Time",
+    "loadingBatchData": "Loading batch data...",
+    "close": "Close",
+    "noData": "No mix data available",
+    "errorFetchingData": "Error fetching mix data",
+    "errorFetchingBatch": "Error fetching batch data"
+  },
+  "issueProduction": {
+    "title": "Issue Components",
+    "dryMixTime": "Dry Mix Time",
+    "wetMixTime": "Wet Mix Time",
+    "timePlaceholder": "time",
+    "min": "min",
+    "cancel": "Cancel",
+    "save": "Save",
+    "pallet": "Pallet",
+    "product": "Product",
+    "description": "Description",
+    "base": "Base",
+    "real": "Real",
+    "lotNumbers": "Lot Numbers",
+    "quantity": "Quantity",
+    "selectLot": "Select Lot",
+    "lotQuantity": "Lot Quantity",
+    "full": "Full",
+    "half": "Half",
+    "double": "Double",
+    "lotQtyZero": "Lot quantities cannot be zero.",
+    "quantitiesZero": "The quantities cannot be zero.",
+    "quantityExceeds": "The quantity cannot exceed the total available in the selected lots.",
+    "batchLotRequired": "All batch items must have a selected lot.",
+    "wetDryRequired": "Wet Mix Time and Dry Mix Time are required.",
+    "allDocsSuccess": "All documents were created successfully.",
+    "unexpectedError": "An unexpected error occurred."
+  },
+  "receiptProduction": {
+    "title": "Product Reception",
+    "savePrint": "Save & Print",
+    "po": "PO:",
+    "sku": "SKU:",
+    "lot": "LOT:",
+    "bestBefore": "BEST BEFORE:",
+    "noPallets": "No PALLETS:",
+    "casesPerPallet": "CASES PER PALLET:",
+    "errorFetchBinLocations": "Failed to fetch bin locations",
+    "errorFetchDough": "Failed to fetch dough reception data",
+    "errorCreatingReceipt": "Error creating the Receipt.",
+    "errorCreatingIssue": "Error creating the Issue.",
+    "errorCreatingDough": "Error creating the Dough Reception Issue.",
+    "errorCreatingFinished": "Error creating the Finished Good Receipt.",
+    "errorSendingPallets": "Error sending the Pallets.",
+    "allDocsSuccess": "All documents were created successfully.",
+    "unexpectedError": "An unexpected error occurred."
+
+
   "report": {
     "typeLabels": {
       "C": "Cleaning",
@@ -241,6 +298,7 @@
     "errorFetchingBatches": "Error fetching batches.",
     "reasonRequired": "Reason is required before creating a Good Issue.",
     "requiredFields": "All fields are required."
+
 
   }
 }

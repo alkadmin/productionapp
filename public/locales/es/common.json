@@ -177,6 +177,63 @@
     "loadError": "No se pudo cargar la información del tiempo muerto"
   },
 
+  "issues": {
+    "title": "Incidencias de Producción Sazonado",
+    "dateTime": "Fecha y Hora",
+    "loadingBatchData": "Cargando datos de lote...",
+    "close": "Cerrar",
+    "noData": "No hay datos de mezcla disponibles",
+    "errorFetchingData": "Error al obtener datos de mezcla",
+    "errorFetchingBatch": "Error al obtener datos de lote"
+  },
+  "issueProduction": {
+    "title": "Emitir Componentes",
+    "dryMixTime": "Tiempo de Mezcla Seca",
+    "wetMixTime": "Tiempo de Mezcla Húmeda",
+    "timePlaceholder": "tiempo",
+    "min": "min",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "pallet": "Pallet",
+    "product": "Producto",
+    "description": "Descripción",
+    "base": "Base",
+    "real": "Real",
+    "lotNumbers": "Números de Lote",
+    "quantity": "Cantidad",
+    "selectLot": "Seleccionar Lote",
+    "lotQuantity": "Cantidad de Lote",
+    "full": "Completo",
+    "half": "Mitad",
+    "double": "Doble",
+    "lotQtyZero": "Las cantidades de lote no pueden ser cero.",
+    "quantitiesZero": "Las cantidades no pueden ser cero.",
+    "quantityExceeds": "La cantidad no puede exceder el total disponible en los lotes seleccionados.",
+    "batchLotRequired": "Todos los artículos por lote deben tener un lote seleccionado.",
+    "wetDryRequired": "Se requieren los tiempos de mezcla húmeda y seca.",
+    "allDocsSuccess": "Todos los documentos fueron creados correctamente.",
+    "unexpectedError": "Ocurrió un error inesperado."
+  },
+  "receiptProduction": {
+    "title": "Recepción de Producto",
+    "savePrint": "Guardar e Imprimir",
+    "po": "PO:",
+    "sku": "SKU:",
+    "lot": "LOTE:",
+    "bestBefore": "MEJOR ANTES:",
+    "noPallets": "Nº PALLETS:",
+    "casesPerPallet": "CAJAS POR PALLET:",
+    "errorFetchBinLocations": "Error al obtener ubicaciones de contenedores",
+    "errorFetchDough": "Error al obtener datos de recepción de masa",
+    "errorCreatingReceipt": "Error al crear la Recepción.",
+    "errorCreatingIssue": "Error al crear la Emisión.",
+    "errorCreatingDough": "Error al crear la Emisión de Recepción de Masa.",
+    "errorCreatingFinished": "Error al crear la Recepción de Producto Terminado.",
+    "errorSendingPallets": "Error al enviar los Pallets.",
+    "allDocsSuccess": "Todos los documentos fueron creados correctamente.",
+    "unexpectedError": "Ocurrió un error inesperado."
+
+
   "report": {
     "typeLabels": {
       "C": "Limpieza",
@@ -241,6 +298,7 @@
     "errorFetchingBatches": "Error al obtener lotes.",
     "reasonRequired": "Se requiere un motivo antes de crear una salida de mercancía.",
     "requiredFields": "Todos los campos son obligatorios."
+
 
   }
 }

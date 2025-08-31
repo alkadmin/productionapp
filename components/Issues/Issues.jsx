@@ -6,6 +6,7 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import formatNumber from '../../utilities/formatNumber';
+import { useTranslation } from '../../utilities/i18n';
 
 const Mixes = ({ id, visible, onHide, chips }) => {
     const [mixData, setMixData] = useState([]);
@@ -14,6 +15,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
     const [loading, setLoading] = useState(false);
     const [expandedRows, setExpandedRows] = useState([]);
     const toast = useRef(null);
+    const { t } = useTranslation();
 
     console.log(id)
     useEffect(() => {
@@ -67,7 +69,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
 
                 // Asegurarse de que CreateDateTime esté en la segunda posición
                 const createDateTimeCol = cols.find(col => col.field === 'CreateDateTime');
-                createDateTimeCol.header = "Date & Time";
+                createDateTimeCol.header = t('issues.dateTime');
                 const otherCols = cols.filter(col => col.field !== 'CreateDateTime');
                 const orderedCols = [otherCols[0], createDateTimeCol, ...otherCols.slice(1)];
 
@@ -78,7 +80,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
             }
         } catch (error) {
             console.error('Error fetching mix data:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error fetching mix data' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('issues.errorFetchingData') });
         } finally {
             setLoading(false); // Ocultar spinner
         }
@@ -127,8 +129,8 @@ const Mixes = ({ id, visible, onHide, chips }) => {
                     console.error(`Error fetching batch data for DocEntry ${entry}:`, error);
                     toast.current.show({
                         severity: 'error',
-                        summary: 'Error',
-                        detail: `Error fetching batch data for DocEntry ${entry}`
+                        summary: t('error'),
+                        detail: `${t('issues.errorFetchingBatch')} ${entry}`
                     });
                 }
             }
@@ -210,7 +212,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
                         </div>
                     ))
                 ) : (
-                    <p>Loading batch data...</p>
+                    <p>{t('issues.loadingBatchData')}</p>
                 )}
             </div>
         );
@@ -219,14 +221,14 @@ const Mixes = ({ id, visible, onHide, chips }) => {
     
     const footer = (
         <div className="p-d-flex p-jc-end">
-            <Button label="Close" icon="pi pi-times" className="p-button-danger" onClick={() => { setExpandedRows([]); onHide(); }} />
+            <Button label={t('issues.close')} icon="pi pi-times" className="p-button-danger" onClick={() => { setExpandedRows([]); onHide(); }} />
         </div>
     );
 
     return (
         <>
             <Toast ref={toast} />
-            <Dialog header="Production Issues Seasoning" maximizable visible={visible} style={{ width: '85vw' }} footer={footer} onHide={() => { setExpandedRows([]); onHide(); }}>
+            <Dialog header={t('issues.title')} maximizable visible={visible} style={{ width: '85vw' }} footer={footer} onHide={() => { setExpandedRows([]); onHide(); }}>
                 {loading ? (
                     <div className="p-d-flex p-jc-center p-ai-center" style={{ height: '100px' }}>
                         <ProgressSpinner />
@@ -242,7 +244,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
                                 ))}
                             </DataTable>
                         ) : (
-                            <p>No mix data available</p>
+                            <p>{t('issues.noData')}</p>
                         )}
                     </>
                 )}
