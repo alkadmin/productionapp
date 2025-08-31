@@ -94,6 +94,7 @@
     "linkedOrder": "Orden Vinculada",
     "salesOrder": "Orden de Venta",
     "closeOrder": "Cerrar Orden",
+    "closePO": "Cerrar OP",
     "addBatch": "Agregar Lote",
     "components": "Componentes",
     "type": "Tipo",
@@ -126,7 +127,9 @@
     "resume": "Reanudar",
     "addPallet": "Agregar Pallet",
     "addMix": "Agregar Mezcla",
-    "deliveryDate": "Fecha de entrega"
+    "deliveryDate": "Fecha de entrega",
+    "bestBuyDate": "Fecha de consumo preferente",
+    "start": "Iniciar"
   },
   "productionList": {
     "orders": "Órdenes de Producción",
@@ -148,6 +151,63 @@
     "statusClose": "Cerrado",
     "group": "Agrupar",
     "ungroup": "Desagrupar"
+  },
+  "issueProductionVariety": {
+    "dryMixTime": "Tiempo de mezcla seca:",
+    "wetMixTime": "Tiempo de mezcla húmeda:",
+    "timePlaceholder": "tiempo",
+    "minutes": "min",
+    "mixTimesRequired": "Se requieren los tiempos de mezcla húmeda y seca.",
+    "real": "Real",
+    "quantity": "Cantidad",
+    "lotInfo": "Información de lote",
+    "lotQtyZero": "Las cantidades de lote no pueden ser cero.",
+    "qtyZero": "Las cantidades no pueden ser cero.",
+    "exceedAvailable": "La cantidad no puede exceder el total disponible en los lotes seleccionados.",
+    "lotRequired": "Todos los artículos con lote deben tener un lote seleccionado.",
+    "issueComponents": "Emitir Componentes",
+    "full": "Completa",
+    "half": "Media",
+    "double": "Doble"
+  },
+
+  "receiptProductionVariety": {
+    "savePrint": "Guardar e Imprimir",
+    "productReception": "Recepción de Producto",
+    "po": "OP",
+    "sku": "SKU",
+    "lot": "LOTE",
+    "bestBefore": "FECHA DE CONSUMO",
+    "noPallets": "No PALLETS",
+    "casesPerPallet": "CAJAS POR PALLET",
+    "failedBinLocations": "Error al obtener ubicaciones de almacén",
+    "failedDoughReception": "Error al obtener datos de recepción de masa",
+    "batchRequired": "El número de lote es obligatorio. Establézcalo antes de continuar.",
+    "bestBeforeRequired": "La fecha de consumo es obligatoria. Establézcala antes de continuar.",
+    "documentsCreated": "Todos los documentos creados correctamente",
+    "unexpectedError": "Ocurrió un error inesperado",
+    "missingData": "Datos faltantes"
+  },
+
+  "pallets": {
+    "errorFetching": "Error al obtener datos de pallets",
+    "labelPrinted": "Etiqueta impresa correctamente",
+    "failedPrintLabel": "Error al imprimir la etiqueta",
+    "close": "Cerrar",
+    "title": "Pallets de Producción",
+    "date": "Fecha",
+    "lineShift": "Turno de Línea",
+    "customerPO": "PO del Cliente",
+    "sku": "SKU",
+    "productDescription": "Descripción del Prod.",
+    "noOfPallet": "No. de Pallet",
+    "casesPerPallet": "Cajas por pallet",
+    "lot": "LOTE",
+    "bestBefore": "Mejor antes",
+    "na": "N/A",
+    "binLocation": "Ubicación en Bin",
+    "print": "Imprimir",
+    "edit": "Editar"
   },
   "downTime": {
     "title": "Tiempo Muerto",

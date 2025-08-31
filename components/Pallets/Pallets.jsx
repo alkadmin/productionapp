@@ -7,10 +7,12 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import EditProduction from '../EditProduction/EditProduction'
+import { useTranslation } from '../../utilities/i18n';
 
 const Pallets = ({ id, visible, onHide }) => {
     const [palletData, setPalletData] = useState([]);
     const toast = useRef(null);
+    const { t } = useTranslation();
     const [selectedRow, setSelectedRow] = useState(null);
     const [isEditDialogVisible, setEditDialogVisible] = useState(false);
 
@@ -45,7 +47,7 @@ const Pallets = ({ id, visible, onHide }) => {
             console.log(data)
         } catch (error) {
             console.error('Error fetching pallet data:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error fetching pallet data' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('pallets.errorFetching') });
         }
     };
 
@@ -62,10 +64,10 @@ const Pallets = ({ id, visible, onHide }) => {
             }
 
             const data = await response.json();
-            toast.current.show({ severity: 'success', summary: 'Success', detail: 'Label printed successfully' });
+            toast.current.show({ severity: 'success', summary: t('success'), detail: t('pallets.labelPrinted') });
         } catch (error) {
             console.error('Error printing label:', error);
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to print label' });
+            toast.current.show({ severity: 'error', summary: t('error'), detail: t('pallets.failedPrintLabel') });
         }
     };
 
@@ -103,7 +105,7 @@ const Pallets = ({ id, visible, onHide }) => {
 
     const footer = (
         <div className="p-d-flex p-jc-end">
-            <Button label="Close" icon="pi pi-times" className="p-button-danger" onClick={onHide} />
+            <Button label={t('pallets.close')} icon="pi pi-times" className="p-button-danger" onClick={onHide} />
         </div>
     );
 
@@ -116,11 +118,11 @@ const Pallets = ({ id, visible, onHide }) => {
                 refreshData={refreshData}
             />
             <Toast ref={toast} />
-            <Dialog maximizable header="Production Pallets" visible={visible} style={{ width: '90vw' }} footer={footer} onHide={onHide}>
+            <Dialog maximizable header={t('pallets.title')} visible={visible} style={{ width: '90vw' }} footer={footer} onHide={onHide}>
                 <DataTable value={palletData} scrollable style={{ 'fontSize': '10px' }} >
                     <Column
                         field="DATE"
-                        header="Date"
+                        header={t('pallets.date')}
                         body={(rowData) => {
                             const dateParts = rowData.DATE.split('-'); // Asumiendo que rowData.DATE está en formato 'YYYY-MM-DD'
                             const formattedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`; // 'MM/DD/YYYY'
@@ -139,25 +141,25 @@ const Pallets = ({ id, visible, onHide }) => {
                     />
 
 
-                    <Column field="LineShift" header="Line Shift" />
-                    <Column field="CustomerPO" header="Customer PO" />
-                    <Column field="SKU" header="SKU" />
-                    <Column field="ProducDesc" header="Prod. Description" />
-                    <Column field="No.Pallet" header="No. of Pallet" />
-                    <Column field="ID" header="No. of Pallet" />
+                    <Column field="LineShift" header={t('pallets.lineShift')} />
+                    <Column field="CustomerPO" header={t('pallets.customerPO')} />
+                    <Column field="SKU" header={t('pallets.sku')} />
+                    <Column field="ProducDesc" header={t('pallets.productDescription')} />
+                    <Column field="No.Pallet" header={t('pallets.noOfPallet')} />
+                    <Column field="ID" header={t('pallets.noOfPallet')} />
 
-                    <Column field="QTY PER PALLET" header="Cases per pallet" />
+                    <Column field="QTY PER PALLET" header={t('pallets.casesPerPallet')} />
                     {/* <Column field="LOT" header="LOT" /> */}
 
                     <Column
                         field="LOT"
-                        header="LOT"
+                        header={t('pallets.lot')}
                         body={(rowData) => rowData.NEWBATCH ? rowData.NEWBATCH : rowData.LOT}
                     />
 
                     <Column
                         field="BEST BEFORE"
-                        header="BestBuy"
+                        header={t('pallets.bestBefore')}
                         body={(rowData) => {
                             const bestBefore = rowData['BEST BEFORE'];
 
@@ -171,14 +173,14 @@ const Pallets = ({ id, visible, onHide }) => {
                             }
 
                             // Valor por defecto si no existe o no es válido
-                            return "N/A";
+                            return t('pallets.na');
                         }}
                     />
 
 
-                    <Column field="BIN LOCATION" header="Bin Location" />
-                    <Column body={actionTemplate} header="Print" />
-                    <Column body={edit} header="Edit" />
+                    <Column field="BIN LOCATION" header={t('pallets.binLocation')} />
+                    <Column body={actionTemplate} header={t('pallets.print')} />
+                    <Column body={edit} header={t('pallets.edit')} />
                 </DataTable>
             </Dialog>
 

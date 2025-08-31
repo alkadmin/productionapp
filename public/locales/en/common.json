@@ -94,6 +94,7 @@
     "linkedOrder": "Linked Order",
     "salesOrder": "Sales Order",
     "closeOrder": "Close Order",
+    "closePO": "Close PO",
     "addBatch": "Add Batch",
     "components": "Components",
     "type": "Type",
@@ -126,7 +127,9 @@
     "resume": "Resume",
     "addPallet": "Add Pallet",
     "addMix": "Add Mix",
-    "deliveryDate": "Delivery Date"
+    "deliveryDate": "Delivery Date",
+    "bestBuyDate": "Best Buy Date",
+    "start": "Start"
   },
   "productionList": {
     "orders": "Production Orders",
@@ -148,6 +151,63 @@
     "statusClose": "Close",
     "group": "Group",
     "ungroup": "Ungroup"
+  },
+  "issueProductionVariety": {
+    "dryMixTime": "Dry Mix Time:",
+    "wetMixTime": "Wet Mix Time:",
+    "timePlaceholder": "time",
+    "minutes": "min",
+    "mixTimesRequired": "Wet Mix Time and Dry Mix Time are required.",
+    "real": "Real",
+    "quantity": "Quantity",
+    "lotInfo": "Lot Info",
+    "lotQtyZero": "Lot quantities cannot be zero.",
+    "qtyZero": "The quantities cannot be zero.",
+    "exceedAvailable": "The quantity cannot exceed the total available in the selected lots.",
+    "lotRequired": "All batch items must have a selected lot.",
+    "issueComponents": "Issue Components",
+    "full": "Full",
+    "half": "Half",
+    "double": "Double"
+  },
+  
+  "receiptProductionVariety": {
+    "savePrint": "Save & Print",
+    "productReception": "Product Reception",
+    "po": "PO",
+    "sku": "SKU",
+    "lot": "LOT",
+    "bestBefore": "BEST BEFORE",
+    "noPallets": "No PALLETS",
+    "casesPerPallet": "CASES PER PALLET",
+    "failedBinLocations": "Failed to fetch bin locations",
+    "failedDoughReception": "Failed to fetch dough reception data",
+    "batchRequired": "Batch number is required. Please set it before proceeding.",
+    "bestBeforeRequired": "BestBefore is required. Please set it before proceeding.",
+    "documentsCreated": "All documents created successfully",
+    "unexpectedError": "An unexpected error occurred",
+    "missingData": "Missing Data"
+  },
+
+  "pallets": {
+    "errorFetching": "Error fetching pallet data",
+    "labelPrinted": "Label printed successfully",
+    "failedPrintLabel": "Failed to print label",
+    "close": "Close",
+    "title": "Production Pallets",
+    "date": "Date",
+    "lineShift": "Line Shift",
+    "customerPO": "Customer PO",
+    "sku": "SKU",
+    "productDescription": "Prod. Description",
+    "noOfPallet": "No. of Pallet",
+    "casesPerPallet": "Cases per pallet",
+    "lot": "LOT",
+    "bestBefore": "BestBuy",
+    "na": "N/A",
+    "binLocation": "Bin Location",
+    "print": "Print",
+    "edit": "Edit"
   },
   "downTime": {
     "title": "Down Time",
