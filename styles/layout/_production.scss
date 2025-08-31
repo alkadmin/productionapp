@@ -1,0 +1,35 @@
+/* index.css */
+.p-card {
+    margin: 1rem 0;
+  }
+  
+  .p-datatable-wrapper {
+    overflow-x: auto;
+  }
+
+.header-prod{
+  display: flex;
+  justify-content: space-between;
+}
+  
+  @media (max-width: 768px) {
+    .p-grid {
+      flex-direction: column;
+    }
+  
+    .p-col-12 {
+      width: 100%;
+    }
+  }
+
+  .production-buttons{
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  
+  .p-button-warning{
+    color: white;
+  }

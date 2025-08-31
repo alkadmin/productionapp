@@ -1,0 +1,87 @@
+CREATE PROCEDURE CTS_ARTESANO_PROD_GET_INFO_USERS()
+AS
+BEGIN
+   
+    
+	SELECT T0."USER_CODE", T0."U_NAME" FROM "OUSR"  T0;
+	 
+	 
+	
+	 
+	 END;
+
+-- Stored Procedure: CTS_GET_REASON_BY_TYPE
+CREATE PROCEDURE CTS_ARTESANO_PROD_GET_REASON_BY_TYPE (
+    IN P_TYPE NVARCHAR(50)
+)
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+    SELECT 
+        T0."U_CTS_Type", 
+        T0."U_CTS_SubType", 
+        T0."U_CTS_Name" 
+    FROM 
+        "@CTS_PRD_DT_REASON" T0
+    WHERE 
+        T0."U_CTS_Type" = :P_TYPE
+        OR T0."U_CTS_Type" = 'ALL';
+END;
+
+CALL CTS_GET_DOWNTIMES_BY_LINE_SHIFT ('L1','S1')
+
+CREATE PROCEDURE CTS_GET_DOWNTIMES_BY_LINE_SHIFT (
+    IN P_LINE NVARCHAR(10),
+    IN P_SHIFT NVARCHAR(10)
+)
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+    SELECT 
+	    "Code",
+        "U_CTS_DateIn" AS "date",
+        "U_CTS_Line" AS "line",
+        "U_CTS_Shift" AS "shift",
+        "U_CTS_TimeIn" AS "startTime",
+        "U_CTS_TimeFin" AS "endTime"
+    FROM "@CTS_PRD_DWTIME"
+    WHERE "U_CTS_Line" = :P_LINE AND "U_CTS_Shift" = :P_SHIFT;
+END;
+
+
+
+
+
+CREATE PROCEDURE CTS_GET_DOWNTIME_TYPES ()
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+    SELECT DISTINCT "U_CTS_Type" AS "Type"
+    FROM "@CTS_PRD_DT_REASON";
+END;
+
+
+
+
+CREATE OR REPLACE PROCEDURE CTS_GET_DOWNTIME_INFO(IN P_CODE NVARCHAR(50))
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+    SELECT 
+        "Code",
+        "U_CTS_Line" AS Line,
+        "U_CTS_Shift" AS Shift,
+        "U_CTS_User" AS User,
+        "U_CTS_Session" AS Session,
+        "U_CTS_DateIn" AS DateIn,
+        "U_CTS_TimeIn" AS TimeIn,
+        "U_CTS_DateFin" AS DateFin,
+        "U_CTS_TimeFin" AS TimeFin,
+        "U_CTA_Type" AS Type,
+        "U_CTS_Reason" AS Reason,
+        "U_CTS_Comments" AS Comments,
+        "U_CTS_CorrActions" AS CorrActions
+    FROM "@CTS_PRD_DWTIME"
+    WHERE "Code" = :P_CODE;
+END;
+

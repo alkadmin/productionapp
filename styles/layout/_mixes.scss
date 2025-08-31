@@ -1,0 +1,71 @@
+/* Mixes.css */
+.p-dialog .p-datatable {
+    // width: 100%;
+}
+
+.p-dialog .p-datatable .p-datatable-scrollable-body {
+    // overflow-x: auto;
+}
+
+.table-header {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2.3rem;
+    
+    font-weight: bold;
+    margin-left: 0.5rem;
+    font-size: 10px;
+   
+}
+
+.table-header-item {
+   width: auto;
+  
+}
+
+.p-accordion-header .p-accordion-header-link {
+   
+    display: flex;
+    justify-content: space-between;
+    
+   
+   
+}
+
+
+
+.p-accordion-toggle-icon{
+    display: none;
+}
+
+.p-accordion-header-text > div{
+// margin-left: -7.5rem;
+display: flex;
+justify-content: space-between;
+    font-size: 12px;
+
+ 
+
+
+
+
+}
+.p-accordion-header-text > div > span {
+    // display: inline-block;
+    text-align: center;
+    width: 7rem !important;
+    display: flex;
+    width: auto;
+   
+}
+
+.p-accordion-content > div{
+    font-size: 12px;
+    text-align: left !important;
+}
+
+.batches-detail{
+    font-size: 12px;
+    font-weight: 700;
+}
+

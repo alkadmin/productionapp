@@ -1,0 +1,79 @@
+.layout-main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+    padding: 7rem 2rem 2rem 4rem;
+    transition: margin-left $transitionDuration;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+}
+
+.logo-login{
+    background-image: url('../../assets/logo.png');
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width:auto;
+    height: 10vh;
+}
+
+.custom-brown-button {
+    background-color: #795548; /* Color marrón */
+    color: #fff; /* Color del texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.custom-brown-button:hover {
+    background-color: #6d4c41; /* Color marrón más oscuro al pasar el ratón */
+}
+
+.p-dropdown-label{
+    font-size: 12px;
+
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    font-size: 12px; /* Cambia el tamaño de la fuente de los ítems de la lista */
+}
+.custom-dropdown .p-dropdown-item {
+    white-space: pre-wrap; /* Preserves whitespace and breaks */
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.2; /* Adjust the line height for better readability */
+}
+
+.mixes-line{
+    // font-size: 12px;
+    border: 1px solid #ddd;
+}
+
+.mixes-line-header{
+    text-align: center;
+    font-size: 13px;
+    
+    // display: flex;
+    // flex-direction: column;
+    // border: 1px solid #ddd;
+}
+
+.icon-white {
+    color: white !important;
+}
+
+.p-inputgroup-addon{
+    font-size: 12px;
+}
+
+
+.p-datatable-thead{
+    background-color: #e3f1f1;
+}
+
+
+.p-datatable-thead > tr > th .p-checkbox {
+    display: none;
+}

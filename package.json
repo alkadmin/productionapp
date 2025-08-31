@@ -1,0 +1,42 @@
+{
+    "name": "sakai-react",
+    "version": "9.1.2",
+    "private": false,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "node server.js"
+    },
+    "dependencies": {
+        "@sap/hana-client": "^2.21.28",
+        "axios": "^1.7.2",
+        "chart.js": "4.2.1",
+        "date-fns": "^4.1.0",
+        "dotenv": "^16.4.5",
+        "eslint": "8.38.0",
+        "eslint-config-next": "13.3.0",
+        "file-saver": "^2.0.5",
+        "formidable": "^3.5.4",
+        "html2canvas": "^1.4.1",
+        "http-proxy-middleware": "^3.0.0",
+        "jspdf": "^3.0.1",
+        "julian": "^0.2.0",
+        "loglevel": "^1.9.2",
+        "lucide-react": "^0.511.0",
+        "next": "13.2.3",
+        "nodemailer": "^7.0.3",
+        "primeflex": "^3.3.0",
+        "primeicons": "^6.0.1",
+        "primereact": "^9.3.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-select": "^5.8.3",
+        "recharts": "^2.15.3",
+        "uuid": "^10.0.0",
+        "xlsx": "^0.18.5"
+    },
+    "devDependencies": {
+        "sass": "^1.58.3"
+    }
+}

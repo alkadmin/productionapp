@@ -1,0 +1,61 @@
+/* Utils */
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+    border-radius: $borderRadius;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.p-toast {
+    &.p-toast-top-right,
+    &.p-toast-top-left,
+    &.p-toast-top-center {
+        top: 100px;
+    }
+}
+
+body.downtime-active {
+    background-color: #ffcccc !important;
+}
+
+.layout-wrapper.downtime-active {
+    background-color: #ffcccc !important;
+}
+
+
+.table-report {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 12px;
+  }
+  
+  .table-report th {
+    background-color: #003366;
+    color: white;
+    text-align: left;
+    padding: 2px;
+    border: 1px solid #ccc;
+  }
+  
+  .table-report td {
+    padding: 2px;
+    border: 1px solid #ccc;
+  }
+  
+  .table-report tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
