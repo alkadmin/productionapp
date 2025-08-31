@@ -176,6 +176,7 @@
     "updateError": "Failed to update downtime",
     "loadError": "Could not load downtime info"
   },
+
   "issues": {
     "title": "Production Issues Seasoning",
     "dateTime": "Date & Time",
@@ -231,5 +232,73 @@
     "errorSendingPallets": "Error sending the Pallets.",
     "allDocsSuccess": "All documents were created successfully.",
     "unexpectedError": "An unexpected error occurred."
+
+
+  "report": {
+    "typeLabels": {
+      "C": "Cleaning",
+      "QA": "Quality",
+      "O": "Operational",
+      "P": "Production"
+    },
+    "cardTitle": "Production Summary - TORTS",
+    "productionDate": "Production Date",
+    "line": "Line",
+    "shift": "Shift",
+    "headcount": "Headcount",
+    "section1": "1. Production Summary",
+    "summary": "Summary",
+    "oeeTitle": "% OEE",
+    "oeeLabels": {
+      "availability": "Availability",
+      "performance": "Performance",
+      "quality": "Quality",
+      "oee": "OEE"
+    },
+    "downtime": "Downtime",
+    "minutes": "Minutes",
+    "section2": "2. Use of Materials",
+    "dohIssues": "DOH Issues",
+    "pkgIssues": "PKG Issues",
+    "otherIssues": "Other Issues",
+    "mixes": "3. Mixes",
+    "pallets": "4. Pallets",
+    "downtimeDetail": "5. Downtime Detail",
+    "footer": {
+      "address": "Address",
+      "document": "Document No. FRM. PRD. 236 rev. 1",
+      "effectiveDate": "Effective Date",
+      "confidential": "Confidential"
+    }
+
+  "waste": {
+    "title": "Waste Register",
+    "reason": "Reason",
+    "remarks": "Remarks",
+    "selectReason": "Select reason",
+    "remarksPlaceholder": "Remarks",
+    "itemSelection": "Item Selection",
+    "selectItem": "Select Item",
+    "warehouse": "Warehouse",
+    "binLocation": "Bin Location",
+    "quantity": "Quantity",
+    "uom": "UOM",
+    "selectBatch": "Select Batch",
+    "add": "Add",
+    "item": "Item",
+    "batch": "Batch",
+    "actions": "Actions",
+    "delete": "Delete",
+    "create": "Create",
+    "goodIssueCreated": "Good Issue created successfully.",
+    "itemDeleted": "Item deleted successfully.",
+    "itemAdded": "Item added successfully.",
+    "errorFetchingData": "Error fetching data.",
+    "errorFetchingBinLocations": "Error fetching bin locations.",
+    "errorFetchingBatches": "Error fetching batches.",
+    "reasonRequired": "Reason is required before creating a Good Issue.",
+    "requiredFields": "All fields are required."
+
+
   }
 }
