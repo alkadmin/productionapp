@@ -175,5 +175,33 @@
     "updateSuccess": "Tiempo muerto actualizado",
     "updateError": "Error al actualizar el tiempo muerto",
     "loadError": "No se pudo cargar la información del tiempo muerto"
+  },
+  "waste": {
+    "title": "Registro de Desperdicio",
+    "reason": "Motivo",
+    "remarks": "Comentarios",
+    "selectReason": "Seleccione un motivo",
+    "remarksPlaceholder": "Comentarios",
+    "itemSelection": "Selección de artículo",
+    "selectItem": "Seleccione artículo",
+    "warehouse": "Almacén",
+    "binLocation": "Ubicación",
+    "quantity": "Cantidad",
+    "uom": "UM",
+    "selectBatch": "Seleccione lote",
+    "add": "Agregar",
+    "item": "Artículo",
+    "batch": "Lote",
+    "actions": "Acciones",
+    "delete": "Eliminar",
+    "create": "Crear",
+    "goodIssueCreated": "Salida de mercancía creada correctamente.",
+    "itemDeleted": "Artículo eliminado correctamente.",
+    "itemAdded": "Artículo agregado correctamente.",
+    "errorFetchingData": "Error al obtener datos.",
+    "errorFetchingBinLocations": "Error al obtener ubicaciones.",
+    "errorFetchingBatches": "Error al obtener lotes.",
+    "reasonRequired": "Se requiere un motivo antes de crear una salida de mercancía.",
+    "requiredFields": "Todos los campos son obligatorios."
   }
 }

@@ -175,5 +175,33 @@
     "updateSuccess": "Downtime updated",
     "updateError": "Failed to update downtime",
     "loadError": "Could not load downtime info"
+  },
+  "waste": {
+    "title": "Waste Register",
+    "reason": "Reason",
+    "remarks": "Remarks",
+    "selectReason": "Select reason",
+    "remarksPlaceholder": "Remarks",
+    "itemSelection": "Item Selection",
+    "selectItem": "Select Item",
+    "warehouse": "Warehouse",
+    "binLocation": "Bin Location",
+    "quantity": "Quantity",
+    "uom": "UOM",
+    "selectBatch": "Select Batch",
+    "add": "Add",
+    "item": "Item",
+    "batch": "Batch",
+    "actions": "Actions",
+    "delete": "Delete",
+    "create": "Create",
+    "goodIssueCreated": "Good Issue created successfully.",
+    "itemDeleted": "Item deleted successfully.",
+    "itemAdded": "Item added successfully.",
+    "errorFetchingData": "Error fetching data.",
+    "errorFetchingBinLocations": "Error fetching bin locations.",
+    "errorFetchingBatches": "Error fetching batches.",
+    "reasonRequired": "Reason is required before creating a Good Issue.",
+    "requiredFields": "All fields are required."
   }
 }

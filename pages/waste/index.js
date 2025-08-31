@@ -6,11 +6,13 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import axios from 'axios';
+import { useTranslation } from '../../utilities/i18n';
 
 const GoodsIssue = () => {
     const BASE_URL = process.env.NEXT_PUBLIC_API_UR;
     const [loading, setLoading] = useState(false);
     const [selectedUOM, setSelectedUOM] = useState(''); // Estado para la UOM seleccionada
+    const { t } = useTranslation();
 
     const [reason, setReason] = useState(null);
     const [remarks, setRemarks] = useState('');
@@ -48,7 +50,7 @@ const GoodsIssue = () => {
                 setWarehouses(warehousesResponse.data.map((wh) => ({ label: wh.WhsName, value: wh.WhsCode })));
                 setReasons(reasonsResponse.data.map((reason) => ({ label: `${reason.Code}`, value: reason.Code })));
             } catch {
-                showError('Error fetching data.');
+                showError(t('waste.errorFetchingData'));
             }
         };
 
@@ -65,19 +67,19 @@ const GoodsIssue = () => {
             const response = await axios.get(`/api/GetBinLocations`, { params: { warehouse } });
             setBinLocations(response.data.map((bin) => ({ label: bin.BinCode, value: bin.AbsEntry })));
         } catch {
-            showError('Error fetching bin locations.');
+            showError(t('waste.errorFetchingBinLocations'));
             setBinLocations([]); // Evita que las opciones anteriores persistan en caso de error
         }
     };
 
     const showWarning = (message) => {
-        toast.current.show({ severity: 'warn', summary: 'Warning', detail: message, life: 3000 });
+        toast.current.show({ severity: 'warn', summary: t('warning'), detail: message, life: 3000 });
     };
     const handleSubmit = async () => {
 
 
         if (!reason) { // Validar si Reason está vacío
-            showWarning('Reason is required before creating a Good Issue.');
+            showWarning(t('waste.reasonRequired'));
             return; // Detener la ejecución si no hay Reason
         }
 
@@ -121,7 +123,7 @@ const GoodsIssue = () => {
             await axios.post(`${BASE_URL}/Inventory/PostGoodIssue`, payload, {
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
             });
-            showSuccess("Good Issue created successfully.");
+            showSuccess(t('waste.goodIssueCreated'));
             setDetails([]); // Limpia la tabla
             resetFormGeneral();
         }
@@ -145,7 +147,7 @@ const GoodsIssue = () => {
         // Filtra los detalles para excluir la línea seleccionada
         const updatedDetails = details.filter((_, i) => i !== index);
         setDetails(updatedDetails); // Actualiza el estado con los detalles restantes
-        showSuccess('Item deleted successfully.');
+        showSuccess(t('waste.itemDeleted'));
     };
 
 
@@ -170,7 +172,7 @@ const GoodsIssue = () => {
                     }))
                 );
             } catch {
-                showError('Error fetching batches.');
+                showError(t('waste.errorFetchingBatches'));
             }
         }
     };
@@ -181,7 +183,7 @@ const GoodsIssue = () => {
 
     const handleAddDetail = () => {
         if (!selectedArticle || !quantity || !selectedWarehouse || !binLocation || !selectedBatch) {
-            showError('All fields are required.');
+            showError(t('waste.requiredFields'));
             return;
         }
 
@@ -200,7 +202,7 @@ const GoodsIssue = () => {
         ]);
 
         resetForm();
-        showSuccess('Item added successfully.');
+        showSuccess(t('waste.itemAdded'));
     };
 
     const resetForm = () => {
@@ -224,11 +226,11 @@ const GoodsIssue = () => {
     };
 
     const showError = (message) => {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 3000 });
+        toast.current.show({ severity: 'error', summary: t('error'), detail: message, life: 3000 });
     };
 
     const showSuccess = (message) => {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
+        toast.current.show({ severity: 'success', summary: t('success'), detail: message, life: 3000 });
     };
 
     return (
@@ -244,15 +246,15 @@ const GoodsIssue = () => {
             }}
         >
             <Toast ref={toast} />
-            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Waste Register</h2>
+            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>{t('waste.title')}</h2>
 
             {/* Reason & Remarks */}
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px' }}>
                 <div style={{ flex: 1 }}>
-                    <label>Reason:</label>
+                    <label>{t('waste.reason')}:</label>
                     <Dropdown
                         value={reason}
-                        placeholder="Select reason"
+                        placeholder={t('waste.selectReason')}
                         options={reasons}
                         onChange={(e) => setReason(e.value)}
                         filter
@@ -260,10 +262,10 @@ const GoodsIssue = () => {
                     />
                 </div>
                 <div style={{ flex: 1 }}>
-                    <label>Remarks:</label>
+                    <label>{t('waste.remarks')}:</label>
                     <InputText
                         value={remarks}
-                        placeholder="Remarks"
+                        placeholder={t('waste.remarksPlaceholder')}
                         onChange={(e) => setRemarks(e.target.value)}
                         style={{ width: '100%', fontSize: '12px' }}
                     />
@@ -272,7 +274,7 @@ const GoodsIssue = () => {
 
             {/* Item Selection */}
             <div style={{ marginTop: '30px', padding: '20px', border: '1px solid #ddd', borderRadius: '10px' }}>
-                <h3 style={{ marginBottom: '20px' }}>Item Selection</h3>
+                <h3 style={{ marginBottom: '20px' }}>{t('waste.itemSelection')}</h3>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: '15px' }}>
                     <Dropdown
                         value={selectedArticle}
@@ -282,7 +284,7 @@ const GoodsIssue = () => {
                             const selectedItem = items.find((item) => item.value === e.value);
                             setSelectedUOM(selectedItem ? selectedItem.uom : ""); // Guarda la UOM seleccionada
                         }}
-                        placeholder="Select Item"
+                        placeholder={t('waste.selectItem')}
                         filter
                         style={{ flex: '2 1 200px', minWidth: '150px', maxWidth: '250px' }} 
                     />
@@ -290,7 +292,7 @@ const GoodsIssue = () => {
                         value={selectedWarehouse}
                         options={warehouses}
                         onChange={(e) => setSelectedWarehouse(e.value)}
-                        placeholder="Warehouse"
+                        placeholder={t('waste.warehouse')}
                         style={{ flex: '2 1 200px', minWidth: '150px', maxWidth: '250px' }} 
                     />
                     {/* <Dropdown
@@ -301,7 +303,7 @@ const GoodsIssue = () => {
                         const selectedBin = binLocations.find((bin) => bin.value === e.value);
                         setBinLocation({ value: e.value, label: selectedBin ? selectedBin.label : '' });
                     }}
-                        placeholder="Bin Location"
+                        placeholder={t('waste.binLocation')}
                         style={{ flex: 1 }}
                     /> */}
                     <Dropdown
@@ -316,15 +318,15 @@ const GoodsIssue = () => {
                                 )
                             );
                         }}
-                        placeholder="Bin Location"
-                        style={{ flex: '2 1 200px', minWidth: '150px', maxWidth: '250px' }} 
+                        placeholder={t('waste.binLocation')}
+                        style={{ flex: '2 1 200px', minWidth: '150px', maxWidth: '250px' }}
                     />
 
 
                     <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
                         <InputText
                             value={quantity}
-                            placeholder="Quantity"
+                            placeholder={t('waste.quantity')}
                             onChange={(e) => setQuantity(e.target.value)}
                             type="number"
                             style={{ flex: 3, fontSize: '12px' }}
@@ -339,36 +341,36 @@ const GoodsIssue = () => {
                             fontSize: '14px',
                             fontWeight: 'bold',
                         }}>
-                            {selectedUOM || 'UOM'}
+                            {selectedUOM || t('waste.uom')}
                         </div>
                     </div>
                     <Dropdown
                         value={selectedBatch}
                         options={batches}
                         onChange={(e) => setSelectedBatch(e.value)}
-                        placeholder="Select Batch"
+                        placeholder={t('waste.selectBatch')}
                         style={{ flex: '2 1 200px', minWidth: '150px', maxWidth: '250px' }} 
                     />
-                    <Button label="Add" icon="pi pi-plus" onClick={handleAddDetail} className="p-button-primary" />
+                    <Button label={t('waste.add')} icon="pi pi-plus" onClick={handleAddDetail} className="p-button-primary" />
                 </div>
             </div>
 
             {/* Details Table */}
             <DataTable value={details} style={{ marginTop: '20px' }}>
-                <Column field="article" header="Item" />
-                <Column field="warehouse" header="Warehouse" />
-                <Column field="binLocationName" header="Bin Location" />
-                <Column field="quantity" header="Quantity" />
-                <Column field="uom" header="UOM" />
-                <Column field="batch" header="Batch" />
+                <Column field="article" header={t('waste.item')} />
+                <Column field="warehouse" header={t('waste.warehouse')} />
+                <Column field="binLocationName" header={t('waste.binLocation')} />
+                <Column field="quantity" header={t('waste.quantity')} />
+                <Column field="uom" header={t('waste.uom')} />
+                <Column field="batch" header={t('waste.batch')} />
                 <Column
-                    header="Actions"
+                    header={t('waste.actions')}
                     body={(rowData, options) => (
                         <Button
                             icon="pi pi-trash"
                             className="p-button-rounded p-button-danger p-button-sm"
                             onClick={() => handleDeleteDetail(options.rowIndex)} // Pasamos el índice de la fila
-                            tooltip="Delete"
+                            tooltip={t('waste.delete')}
                         />
                     )}
                     style={{ textAlign: 'center', width: '80px' }}
@@ -376,7 +378,7 @@ const GoodsIssue = () => {
             </DataTable>
 
             <div style={{ textAlign: 'right', marginTop: '20px' }}>
-                <Button label="Create" icon="pi pi-check" onClick={handleSubmit} loading={loading} className="p-button-success" />
+                <Button label={t('waste.create')} icon="pi pi-check" onClick={handleSubmit} loading={loading} className="p-button-success" />
             </div>
         </div>
     );
