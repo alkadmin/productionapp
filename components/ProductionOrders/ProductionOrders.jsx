@@ -12,6 +12,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeflex/primeflex.css';
 import './index.css';
 import IssueProduction from '@/components/IssueProduction/IssueProduction';
+import { useTranslation } from '@/utilities/i18n';
 
 const ProductionOrder = (id) => {
 
@@ -19,6 +20,8 @@ const ProductionOrder = (id) => {
   const [allItems, setAllItems] = useState(null);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const API = process.env.API
+  const { t } = useTranslation();
+  const router = useRouter();
   const handleProduceClick = (child) => {
     router.push(`/production/${child.POChildrenDocEntry}`);
   };
@@ -58,7 +61,7 @@ const ProductionOrder = (id) => {
   }, [id]);
 
   if (!order) {
-    return <div>Loading...</div>;
+    return <div>{t('productionOrder.loading')}</div>;
   }
 
   const linkTemplate = (rowData) => {
@@ -72,72 +75,72 @@ const ProductionOrder = (id) => {
   const actionTemplate = (rowData) => {
     return (
       <>
-        {rowData.Type === 'PO' && (
-          <Button
-            label="Produce"
-            className="p-button-info"
-            onClick={() => handleProduceClick(rowData)}
-          />
-        )}
-        {rowData.Type === 'Item' && (
-          <Button
-            label="Issue"
-            className="p-button-warning"
-            onClick={() => showDialog(rowData)}
-          />
-        )}
+          {rowData.Type === 'PO' && (
+            <Button
+              label={t('productionOrder.produce')}
+              className="p-button-info"
+              onClick={() => handleProduceClick(rowData)}
+            />
+          )}
+          {rowData.Type === 'Item' && (
+            <Button
+              label={t('productionOrder.issue')}
+              className="p-button-warning"
+              onClick={() => showDialog(rowData)}
+            />
+          )}
       </>
     );
   };
 
   return (
     <>
-      <Card title="Production Order" className="p-card">
+      <Card title={t('productionOrder.title')} className="p-card">
         <div className="p-grid p-nogutter">
           <div className="p-col-12 p-md-6">
-            <div><b>Product No.:</b> {order[0].ItemCode}</div>
-            <div><b>Product Description:</b> {order[0].ProdName}</div>
-            <div><b>Planned Quantity:</b> {order[0].PlannedQty}</div>
-            <div><b>Warehouse:</b> {order[0].Warehouse}</div>
+            <div><b>{t('productionOrder.productNo')}:</b> {order[0].ItemCode}</div>
+            <div><b>{t('productionOrder.productDescription')}:</b> {order[0].ProdName}</div>
+            <div><b>{t('productionOrder.plannedQuantity')}:</b> {order[0].PlannedQty}</div>
+            <div><b>{t('productionOrder.warehouse')}:</b> {order[0].Warehouse}</div>
           </div>
           <div className="p-col-12 p-md-6">
-            <div><b>No. (PO):</b> {order[0].DocNum}</div>
-            <div><b>Order Date:</b> {order[0].CreateDate}</div>
-            <div><b>Start Date:</b> {order[0].StartDate}</div>
-            <div><b>Production Finish Date:</b> {order[0].DueDate}</div>
-            <div><b>Linked To:</b> Sales Order</div>
-            <div><b>Linked Order:</b> {order[0].OriginNum}</div>
+            <div><b>{t('productionOrder.poNumber')}:</b> {order[0].DocNum}</div>
+            <div><b>{t('productionOrder.orderDate')}:</b> {order[0].CreateDate}</div>
+            <div><b>{t('productionOrder.startDate')}:</b> {order[0].StartDate}</div>
+            <div><b>{t('productionOrder.finishDate')}:</b> {order[0].DueDate}</div>
+            <div><b>{t('productionOrder.linkedTo')}:</b> {t('productionOrder.salesOrder')}</div>
+            <div><b>{t('productionOrder.linkedOrder')}:</b> {order[0].OriginNum}</div>
           </div>
         </div>
         <div className="p-grid p-nogutter p-justify-end p-mt-3">
           {!allItems && (
             <>
-              <Button label="Start Production" className="p-button-success p-mr-2" />
-              <Button label="End Production" className="p-button-danger" />
+              <Button label={t('topbar.startProduction')} className="p-button-success p-mr-2" />
+              <Button label={t('topbar.endProduction')} className="p-button-danger" />
             </>
           )}
           {allItems && (
             <>
-              <Button label="Close Order" className="p-button-danger" />
-              <Button label="Add Batch" 
+              <Button label={t('productionOrder.closeOrder')} className="p-button-danger" />
+              <Button label={t('productionOrder.addBatch')}
               className="p-button-success p-mr-2"
               onClick={showBatchDialog} />
             </>
           )}
         </div>
       </Card>
-      <Card title="Components" className="p-card p-mt-3">
+      <Card title={t('productionOrder.components')} className="p-card p-mt-3">
         <div className="p-datatable-wrapper">
           <DataTable value={order} paginator rows={10} responsiveLayout="scroll">
-            <Column field="Type" header="Type" />
-            <Column field="ItemCode2" header="Product" />
-            <Column field="ItemName" header="Description" />
-            <Column field="BaseQty" header="Base Quantity" />
-            <Column field="PlannedQty" header="Planned" />
-            <Column field="CmpltQty" header="Issued" />
-            <Column field="DocNum" header="Available" />
-            {!allItems && <Column body={linkTemplate} header="Child PO" />}
-            {!allItems && <Column body={actionTemplate} header="Actions" />}
+            <Column field="Type" header={t('productionOrder.type')} />
+            <Column field="ItemCode2" header={t('productionOrder.product')} />
+            <Column field="ItemName" header={t('productionOrder.description')} />
+            <Column field="BaseQty" header={t('productionOrder.baseQuantity')} />
+            <Column field="PlannedQty" header={t('productionOrder.planned')} />
+            <Column field="CmpltQty" header={t('productionOrder.issued')} />
+            <Column field="DocNum" header={t('productionOrder.available')} />
+            {!allItems && <Column body={linkTemplate} header={t('productionOrder.childPO')} />}
+            {!allItems && <Column body={actionTemplate} header={t('productionOrder.actions')} />}
           </DataTable>
         </div>
       </Card>

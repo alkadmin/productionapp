@@ -13,6 +13,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import ProductionInfoModal from '../components/ProductionInfoModal/ProductionInfoModal';
 import { Toast } from 'primereact/toast';
+import { useTranslation } from '../utilities/i18n';
 
 const AppTopbar = forwardRef((props, ref) => {
     const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar, language, setLanguage } = useContext(LayoutContext);
@@ -29,8 +30,9 @@ const AppTopbar = forwardRef((props, ref) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [startDate, setStartDate] = useState(null);
-    const [infoButton, setInfoButton] = useState("Start Production");
+    const [infoButton, setInfoButton] = useState('start');
     const toast = useRef(null);
+    const { t } = useTranslation();
 
     useImperativeHandle(ref, () => ({
         menubutton: menubuttonRef.current,
@@ -63,7 +65,7 @@ const AppTopbar = forwardRef((props, ref) => {
     }, [startTime]);
 
     const handleStartProduction = async () => {
-        if (infoButton === 'End Production') {
+        if (infoButton === 'end') {
             const now = new Date();
             const centralTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
             const formattedDate = centralTime.toISOString().slice(0, 10);
@@ -88,8 +90,8 @@ const AppTopbar = forwardRef((props, ref) => {
                     console.error("❌ API Error Response:", data);
                     toast.current?.show({
                         severity: 'error',
-                        summary: 'Error',
-                        detail: data.message || 'Failed to end production'
+                        summary: t('topbar.error'),
+                        detail: data.message || t('topbar.endProductionFailed')
                     });
                     return;
                 }
@@ -97,8 +99,8 @@ const AppTopbar = forwardRef((props, ref) => {
                 console.log("✅ Production end response:", data);
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Success',
-                    detail: 'Production ended successfully'
+                    summary: t('topbar.success'),
+                    detail: t('topbar.endProductionSuccess')
                 });
 
 
@@ -119,14 +121,14 @@ const AppTopbar = forwardRef((props, ref) => {
                 catch{
                     
                 }
-                setInfoButton("Start Production");
+                setInfoButton('start');
                 setStartTime(null);
             } catch (error) {
                 console.error("❌ Network/Error exception:", error);
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
-                    detail: error.message || 'Request failed'
+                    summary: t('topbar.error'),
+                    detail: error.message || t('topbar.requestFailed')
                 });
             }
         } else {
@@ -138,7 +140,7 @@ const AppTopbar = forwardRef((props, ref) => {
     const handleSaveProductionInfo = (info) => {
         setHeadcount(info.HeadCount);
         setStartTime(new Date(info.startTime));
-        setInfoButton("End Production")
+        setInfoButton('end')
     };
 
     useEffect(() => {
@@ -164,7 +166,7 @@ const AppTopbar = forwardRef((props, ref) => {
                         setStartTime(composedDate);
 
                         setStartDate(data.StartDate)
-                        setInfoButton("End Production");
+                        setInfoButton('end');
                     });
             }
         }
@@ -206,22 +208,22 @@ const AppTopbar = forwardRef((props, ref) => {
                 )}
 
                 <Button
-                    label={infoButton}
-                    className={infoButton === "End Production" ? "p-button-danger" : "p-button-success"}
+                    label={infoButton === 'end' ? t('topbar.endProduction') : t('topbar.startProduction')}
+                    className={infoButton === 'end' ? 'p-button-danger' : 'p-button-success'}
                     onClick={handleStartProduction}
                 />
                 {startDate && <>
-                    <span className="header-item">Prod. Date: {new Date(startDate).toLocaleDateString()}</span>
-                    <span className="header-item">Running Time: {timer}</span>
-                    <span className="header-item">Headcount: {headcount}</span>
+                    <span className="header-item">{t('topbar.prodDate')}: {new Date(startDate).toLocaleDateString()}</span>
+                    <span className="header-item">{t('topbar.runningTime')}: {timer}</span>
+                    <span className="header-item">{t('topbar.headcount')}: {headcount}</span>
                 </>}
-                <span className="header-item">{"Line: " + line}</span>
-                <span className="header-item">{"Shift: " + shift}</span>
+                <span className="header-item">{t('topbar.line') + ": " + line}</span>
+                <span className="header-item">{t('topbar.shift') + ": " + shift}</span>
                 <span className="header-item">{username}</span>
                 <Dropdown value={language} options={languageOptions} onChange={onLanguageChange} className="language-selector" />
                 <button type="button" className="p-link layout-topbar-button">
                     <i className="pi pi-user"></i>
-                    <span>Profile</span>
+                    <span>{t('topbar.profile')}</span>
                 </button>
             </div>
 
