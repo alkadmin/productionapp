@@ -114,13 +114,8 @@ const LoginPage = () => {
     return (
         <div className={containerClassName}>
             <div className="flex flex-column align-items-center justify-content-center">
-                <div style={{
-                    borderRadius: '26px',
-                    padding: '0.2rem',
-                    background: 'linear-gradient(180deg, #D71A28 5%, #FFD700 45%, #CFAF50 60%, #ffa133 85%)'
-
-                }}>
-                    <div className="w-full surface-card py-5 px-5 sm:px-8" style={{ borderRadius: '25px' }}>
+                <div className="login-gradient-container">
+                    <div className="w-full surface-card py-5 px-5 sm:px-8 login-card">
                         <div className="text-center mb-5">
                             <div className='logo-login'></div>
                             Web Production
@@ -146,7 +141,6 @@ const LoginPage = () => {
                                 className="w-full p-3 text-xl mb-2 custom-brown-button"
                                 onClick={runLogin}
                                 disabled={loading}
-                                style={{ background: '#ffa133', borderColor: '#ffa133', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
                                 {loading ? (
                                     <>
@@ -173,7 +167,7 @@ LoginPage.getLayout = function getLayout(page) {
     return (
         <React.Fragment>
             {page}
-            {false && <AppConfig simple />}
+            <AppConfig simple />
         </React.Fragment>
     );
 };
