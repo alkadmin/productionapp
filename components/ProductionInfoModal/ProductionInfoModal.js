@@ -9,6 +9,7 @@ import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 
 import { useRef } from 'react';
+import { useTranslation } from '../../utilities/i18n';
 const ProductionInfoModal = ({ visible, onHide, onSave, line1, shift1,toastRef }) => {
     const [supervisor, setSupervisor] = useState(null);
     const [mixerOperator, setMixerOperator] = useState(null);
@@ -18,6 +19,7 @@ const ProductionInfoModal = ({ visible, onHide, onSave, line1, shift1,toastRef }
     const [prodDate, setProdDate] = useState(new Date());
     const [userOptions, setUserOptions] = useState([]);
     const toast = useRef(null);
+    const { t } = useTranslation();
     useEffect(() => {
         setLine(localStorage.getItem('line'));
         setShift(localStorage.getItem('shift'));
@@ -62,17 +64,17 @@ const ProductionInfoModal = ({ visible, onHide, onSave, line1, shift1,toastRef }
             if (!resp.ok) {
               toastRef.current.show({
                 severity: 'error',
-                summary: 'Error',
-                detail: data.message || 'Unknown error',
+                summary: t('productionInfo.error'),
+                detail: data.message || t('productionInfo.unknownError'),
                 life: 3000
               });
               return;
             }
-          
+
             toastRef.current.show({
               severity: 'success',
-              summary: 'Success',
-              detail: 'Production session started successfully',
+              summary: t('productionInfo.success'),
+              detail: t('productionInfo.sessionStartSuccess'),
               life: 3000
             });
           
@@ -84,7 +86,7 @@ const ProductionInfoModal = ({ visible, onHide, onSave, line1, shift1,toastRef }
           } catch (error) {
             toastRef.current.show({
               severity: 'error',
-              summary: 'Internal Error',
+              summary: t('productionInfo.internalError'),
               detail: error.message,
               life: 3000
             });
@@ -96,30 +98,30 @@ const ProductionInfoModal = ({ visible, onHide, onSave, line1, shift1,toastRef }
     return (
         <>
        
-        <Dialog header="Production Information" visible={visible} style={{ width: '30vw' }} onHide={onHide} modal>
+        <Dialog header={t('productionInfo.title')} visible={visible} style={{ width: '30vw' }} onHide={onHide} modal>
             <div className="p-fluid">
-                <label>Supervisor:</label>
-                <Dropdown value={supervisor} options={userOptions} onChange={(e) => setSupervisor(e.value)} placeholder="Select Supervisor" />
+                <label>{t('productionInfo.supervisor')}:</label>
+                <Dropdown value={supervisor} options={userOptions} onChange={(e) => setSupervisor(e.value)} placeholder={t('productionInfo.selectSupervisor')} />
 
-                <label>Mixer Operator:</label>
-                <Dropdown value={mixerOperator} options={userOptions} onChange={(e) => setMixerOperator(e.value)} placeholder="Select Mixer" />
+                <label>{t('productionInfo.mixerOperator')}:</label>
+                <Dropdown value={mixerOperator} options={userOptions} onChange={(e) => setMixerOperator(e.value)} placeholder={t('productionInfo.selectMixer')} />
 
-                <label>Headcount:</label>
+                <label>{t('productionInfo.headcount')}:</label>
                 <InputText value={headcount} onChange={(e) => setHeadcount(e.target.value)} />
 
-                <label>Line:</label>
+                <label>{t('productionInfo.line')}:</label>
                 <InputText value={line} disabled />
 
-                <label>Shift:</label>
+                <label>{t('productionInfo.shift')}:</label>
                 <InputText value={shift} disabled />
 
-                <label>Prod. Date:</label>
+                <label>{t('productionInfo.prodDate')}:</label>
                 <Calendar value={prodDate} onChange={(e) => setProdDate(e.value)} showIcon />
             </div>
             <br />
             <div className="p-d-flex p-jc-end p-mt-3">
-                <Button label="Cancel" icon="pi pi-times" onClick={onHide} className="p-button-secondary p-mr-2" />
-                <Button label="Save" icon="pi pi-check" onClick={handleSave} autoFocus />
+                <Button label={t('productionInfo.cancel')} icon="pi pi-times" onClick={onHide} className="p-button-secondary p-mr-2" />
+                <Button label={t('productionInfo.save')} icon="pi pi-check" onClick={handleSave} autoFocus />
             </div>
         </Dialog>
         </>

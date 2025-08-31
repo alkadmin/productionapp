@@ -34,10 +34,10 @@ const LoginPage = () => {
                     const data = await response.json();
                     setShifts(data.map(shift => ({ label: shift.Code, value: shift.Name })));
                 } else {
-                    console.error('Failed to fetch shifts');
+                    console.error(t('login.fetchShiftsFailed'));
                 }
             } catch (error) {
-                console.error('Error fetching shifts:', error);
+                console.error(t('login.errorFetchingShifts'), error);
             }
         };
 
@@ -75,7 +75,7 @@ const LoginPage = () => {
 
             if (!response.ok) {
                 const errorResult = await response.json();
-                setErrorMessage(errorResult.message || 'Incorrect username or password');
+                setErrorMessage(errorResult.message || t('login.incorrectCredentials'));
                 return;
             }
 
@@ -91,13 +91,13 @@ const LoginPage = () => {
             // Fetch user details
             const responseUser = await fetch(`/api/UserDetails?id=${loginData.UserName}`);
             if (!responseUser.ok) {
-                setErrorMessage('User does not have an assigned production type.');
+                setErrorMessage(t('login.missingProductionType'));
                 return;
             }
 
             const data = await responseUser.json();
             if (data.length === 0 || !data[0]?.path) {
-                setErrorMessage('User does not have an assigned production type.');
+                setErrorMessage(t('login.missingProductionType'));
                 return;
             }
 
@@ -112,7 +112,7 @@ const LoginPage = () => {
 
         } catch (error) {
             console.error('Error:', error);
-            setErrorMessage('An error occurred');
+            setErrorMessage(t('login.errorOccurred'));
         } finally {
             setLoading(false);
         }
@@ -130,7 +130,7 @@ const LoginPage = () => {
                     <div className="w-full surface-card py-5 px-5 sm:px-8 login-card">
                         <div className="text-center mb-5">
                             <div className='logo-login'></div>
-                            Web Production
+                            {t('login.title')}
                             <Dropdown value={language?.toLowerCase()} options={languageOptions} onChange={onLanguageChange} className="language-selector mt-3" />
                         </div>
 
