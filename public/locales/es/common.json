@@ -10,6 +10,7 @@
   "warning": "Advertencia",
   "success": "Éxito",
   "error": "Error",
+  "alert": "Alerta",
   "tortillas": "Tortillas",
   "menu": {
     "chips": "Chips",
@@ -147,5 +148,32 @@
     "statusClose": "Cerrado",
     "group": "Agrupar",
     "ungroup": "Desagrupar"
+  },
+  "downTime": {
+    "title": "Tiempo Muerto",
+    "timeLost": "Tiempo Perdido",
+    "addNew": "Agregar TM",
+    "end": "Terminar TM",
+    "confirmStart": "Confirmar Tiempo Muerto",
+    "confirmEnd": "Confirmar Fin de Tiempo Muerto",
+    "reportTitle": "Reportar Tiempo Muerto",
+    "typeLabel": "Tipo de Tiempo Muerto:",
+    "causeLabel": "Causa:",
+    "commentsLabel": "Comentarios adicionales:",
+    "actionsLabel": "Acciones correctivas:",
+    "selectType": "Seleccione un tipo",
+    "selectCause": "Seleccione una causa",
+    "code": "Código",
+    "date": "Fecha",
+    "line": "Línea",
+    "shift": "Turno",
+    "startTime": "Hora de inicio",
+    "endTime": "Hora de fin",
+    "save": "Guardar",
+    "startSuccess": "Tiempo muerto iniciado",
+    "startError": "No se pudo iniciar el tiempo muerto",
+    "updateSuccess": "Tiempo muerto actualizado",
+    "updateError": "Error al actualizar el tiempo muerto",
+    "loadError": "No se pudo cargar la información del tiempo muerto"
   }
 }
