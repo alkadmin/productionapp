@@ -15,5 +15,10 @@
     "may": "May",
     "june": "June",
     "july": "July"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "submit": "Log In"
   }
 }

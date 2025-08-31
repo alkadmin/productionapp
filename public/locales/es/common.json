@@ -15,5 +15,10 @@
     "may": "Mayo",
     "june": "Junio",
     "july": "Julio"
+  },
+  "login": {
+    "username": "Usuario",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión"
   }
 }

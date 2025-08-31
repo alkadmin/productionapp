@@ -11,6 +11,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { classNames } from 'primereact/utils';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { useTranslation } from '../../../utilities/i18n';
 
 const LoginPage = () => {
     const [password, setPassword] = useState('');
@@ -20,8 +21,9 @@ const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const { layoutConfig } = useContext(LayoutContext);
+    const { layoutConfig, language, setLanguage } = useContext(LayoutContext);
     const router = useRouter();
+    const { t } = useTranslation();
     const BASE_URL = process.env.NEXT_PUBLIC_API_UR;
 
     useEffect(() => {
@@ -41,6 +43,16 @@ const LoginPage = () => {
 
         fetchShifts();
     }, []); // Empty dependency array ensures this runs only once
+
+    const languageOptions = [
+        { label: 'EN', value: 'en' },
+        { label: 'ES', value: 'es' }
+    ];
+
+    const onLanguageChange = (e) => {
+        setLanguage(e.value.toUpperCase());
+        router.push(router.pathname, router.asPath, { locale: e.value });
+    };
 
     const runLogin = async () => {
         setLoading(true);
@@ -124,19 +136,20 @@ const LoginPage = () => {
                         <div className="text-center mb-5">
                             <div className='logo-login'></div>
                             Web Production
+                            <Dropdown value={language?.toLowerCase()} options={languageOptions} onChange={onLanguageChange} className="language-selector mt-3" />
                         </div>
 
                         <div>
                             <label htmlFor="email1" className="block text-900 text-xl font-medium mb-1">
-                                Username
+                                {t('login.username')}
                             </label>
                             <InputText
-                                inputid="email1" type="text" placeholder="username" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full md:w-20rem mb-5" style={{ padding: '0.5rem' }} />
+                                inputid="email1" type="text" placeholder={t('login.username')} value={email} onChange={(e) => setEmail(e.target.value)} className="w-full md:w-20rem mb-5" style={{ padding: '0.5rem' }} />
                             <label htmlFor="password1" className="block text-900 font-medium text-xl mb-1">
-                                Password
+                                {t('login.password')}
                             </label>
                             <Password
-                                inputid="password1" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" toggleMask className="w-full mb-5" inputClassName="w-full p-1.5 md:w-20rem"></Password>
+                                inputid="password1" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('login.password')} toggleMask className="w-full mb-5" inputClassName="w-full p-1.5 md:w-20rem"></Password>
                             {/* <label htmlFor="shift" className="block text-900 font-medium text-xl mb-1">
                                 Shift
                             </label> */}
@@ -154,7 +167,7 @@ const LoginPage = () => {
                                         {/* Processing... */}
                                     </>
                                 ) : (
-                                    'Log In'
+                                    t('login.submit')
                                 )}
                             </Button>
 
