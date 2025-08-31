@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const LayoutContext = React.createContext();
 
@@ -20,6 +20,21 @@ export const LayoutProvider = (props) => {
         staticMenuMobileActive: false,
         menuHoverActive: false
     });
+
+    const [language, setLanguage] = useState('EN');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedLang = localStorage.getItem('language') || 'EN';
+            setLanguage(storedLang);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('language', language);
+        }
+    }, [language]);
 
     const onMenuToggle = () => {
         if (isOverlay()) {
@@ -51,7 +66,9 @@ export const LayoutProvider = (props) => {
         layoutState,
         setLayoutState,
         onMenuToggle,
-        showProfileSidebar
+        showProfileSidebar,
+        language,
+        setLanguage
     };
 
     return <LayoutContext.Provider value={value}>{props.children}</LayoutContext.Provider>;

@@ -5,6 +5,7 @@ import { classNames } from 'primereact/utils';
 import React, { forwardRef, useContext, useImperativeHandle, useRef, useState, useEffect } from 'react';
 import { LayoutContext } from './context/layoutcontext';
 import { Button } from 'primereact/button';
+import { Dropdown } from 'primereact/dropdown';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -13,7 +14,7 @@ import ProductionInfoModal from '../components/ProductionInfoModal/ProductionInf
 import { Toast } from 'primereact/toast';
 
 const AppTopbar = forwardRef((props, ref) => {
-    const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } = useContext(LayoutContext);
+    const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar, language, setLanguage } = useContext(LayoutContext);
     const menubuttonRef = useRef(null);
     const topbarmenuRef = useRef(null);
     const topbarmenubuttonRef = useRef(null);
@@ -167,6 +168,18 @@ const AppTopbar = forwardRef((props, ref) => {
         }
     }, [modalVisible]);
 
+    const languageOptions = [
+        { label: 'EN', value: 'EN' },
+        { label: 'ES', value: 'ES' }
+    ];
+
+    const onLanguageChange = (e) => {
+        setLanguage(e.value);
+        if (typeof window !== 'undefined') {
+            window.location.reload();
+        }
+    };
+
     return (
         <div className="layout-topbar" >
             <Toast ref={toast} position="top-right" style={{ marginTop: '60px', zIndex: 9999 }} />
@@ -205,6 +218,7 @@ const AppTopbar = forwardRef((props, ref) => {
                 <span className="header-item">{"Line: " + line}</span>
                 <span className="header-item">{"Shift: " + shift}</span>
                 <span className="header-item">{username}</span>
+                <Dropdown value={language} options={languageOptions} onChange={onLanguageChange} className="language-selector" />
                 <button type="button" className="p-link layout-topbar-button">
                     <i className="pi pi-user"></i>
                     <span>Profile</span>
