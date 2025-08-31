@@ -20,12 +20,31 @@
     height: 10vh;
 }
 
+.login-gradient-container {
+    border-radius: 26px;
+    padding: 0.2rem;
+    background: linear-gradient(
+        180deg,
+        var(--primary-color) 5%,
+        var(--primary-color-light) 45%,
+        var(--primary-color-hover) 60%,
+        var(--primary-color) 85%
+    );
+}
+
+.login-card {
+    border-radius: 25px;
+}
+
 .custom-brown-button {
     background-color: var(--primary-color);
     color: var(--primary-color-text);
-    border: none; /* Sin borde */
+    border: 1px solid var(--primary-color);
     border-radius: 8px; /* Bordes redondeados */
     transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .custom-brown-button:hover {
