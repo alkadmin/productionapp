@@ -10,6 +10,7 @@
   "warning": "Warning",
   "success": "Success",
   "error": "Error",
+  "alert": "Alert",
   "tortillas": "Tortillas",
   "menu": {
     "chips": "Chips",
@@ -147,5 +148,32 @@
     "statusClose": "Close",
     "group": "Group",
     "ungroup": "Ungroup"
+  },
+  "downTime": {
+    "title": "Down Time",
+    "timeLost": "Time Lost",
+    "addNew": "Add New DT",
+    "end": "End Down Time",
+    "confirmStart": "Confirm Down Time",
+    "confirmEnd": "Confirm End Down Time",
+    "reportTitle": "Report Down Time",
+    "typeLabel": "Type of Down time:",
+    "causeLabel": "Cause:",
+    "commentsLabel": "Additional comments:",
+    "actionsLabel": "Corrective actions:",
+    "selectType": "Select a type",
+    "selectCause": "Select a cause",
+    "code": "Code",
+    "date": "Date",
+    "line": "Line",
+    "shift": "Shift",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "save": "Save",
+    "startSuccess": "Downtime started",
+    "startError": "Could not start downtime",
+    "updateSuccess": "Downtime updated",
+    "updateError": "Failed to update downtime",
+    "loadError": "Could not load downtime info"
   }
 }

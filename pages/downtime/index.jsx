@@ -10,8 +10,10 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Toast } from 'primereact/toast';
+import { useTranslation } from '../../utilities/i18n';
 
 const DownTime = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showEndConfirm, setShowEndConfirm] = useState(false);
@@ -120,9 +122,9 @@ const DownTime = () => {
 
       setDowntimeStart(composedDate);
       setDowntimeActive(true);
-      toast.current?.show({ severity: 'success', summary: 'Started', detail: 'Downtime started' });
+      toast.current?.show({ severity: 'success', summary: t('success'), detail: t('downTime.startSuccess') });
     } else {
-      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Could not start downtime' });
+      toast.current?.show({ severity: 'error', summary: t('error'), detail: t('downTime.startError') });
     }
   };
 
@@ -183,11 +185,11 @@ const DownTime = () => {
 
     const result = await response.json();
     if (result.message?.includes('updated')) {
-      toast.current?.show({ severity: 'success', summary: 'Completed', detail: 'Downtime updated' });
+      toast.current?.show({ severity: 'success', summary: t('success'), detail: t('downTime.updateSuccess') });
       setShowReportModal(false);
       localStorage.setItem('downtimeActive', false)
     } else {
-      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Failed to update downtime' });
+      toast.current?.show({ severity: 'error', summary: t('error'), detail: t('downTime.updateError') });
     }
   };
   console.log(data)
@@ -210,11 +212,11 @@ const DownTime = () => {
 
       <Card>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>Down Time</h1>
+          <h1>{t('downTime.title')}</h1>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="p-button p-component p-button-danger">Time Lost: {elapsedTime}</div>
+            <div className="p-button p-component p-button-danger">{t('downTime.timeLost')}: {elapsedTime}</div>
             <Button
-              label={downtimeActive ? "End Down Time" : "Add New DT"}
+              label={downtimeActive ? t('downTime.end') : t('downTime.addNew')}
               className={downtimeActive ? "p-button-warning" : "p-button-success"}
               onClick={handleDTAction}
             />
@@ -246,63 +248,63 @@ console.log(info)
               } catch (error) {
                 toast.current?.show({
                   severity: 'error',
-                  summary: 'Error',
-                  detail: 'Could not load downtime info'
+                  summary: t('error'),
+                  detail: t('downTime.loadError')
                 });
               }
             }
           }}
         >
-          <Column field="Code" header="Code" />
-          <Column field="date" header="Date" body={(row) => format(new Date(row.date), 'yyyy-MM-dd')} />
-          <Column field="line" header="Line" />
-          <Column field="shift" header="Shift" />
-          <Column field="startTime" header="Start Time" />
-          <Column field="endTime" header="End Time" />
+          <Column field="Code" header={t('downTime.code')} />
+          <Column field="date" header={t('downTime.date')} body={(row) => format(new Date(row.date), 'yyyy-MM-dd')} />
+          <Column field="line" header={t('downTime.line')} />
+          <Column field="shift" header={t('downTime.shift')} />
+          <Column field="startTime" header={t('downTime.startTime')} />
+          <Column field="endTime" header={t('downTime.endTime')} />
         </DataTable>
 
       </Card>
 
       {/* Confirmar inicio */}
-      <Dialog header="Alert" visible={showConfirm} modal onHide={() => setShowConfirm(false)}>
-        <h3>Confirm Down Time</h3>
+      <Dialog header={t('alert')} visible={showConfirm} modal onHide={() => setShowConfirm(false)}>
+        <h3>{t('downTime.confirmStart')}</h3>
         <div className="mt-4 flex justify-content-center gap-2">
-          <Button label="Cancel" className="p-button-danger" onClick={() => setShowConfirm(false)} />
-          <Button label="OK" className="p-button-success" onClick={confirmDowntime} />
+          <Button label={t('warningDialog.cancel')} className="p-button-danger" onClick={() => setShowConfirm(false)} />
+          <Button label={t('warningDialog.ok')} className="p-button-success" onClick={confirmDowntime} />
         </div>
       </Dialog>
 
       {/* Confirmar fin */}
-      <Dialog header="Alert" visible={showEndConfirm} modal onHide={() => setShowEndConfirm(false)}>
-        <h3>Confirm End Down Time</h3>
+      <Dialog header={t('alert')} visible={showEndConfirm} modal onHide={() => setShowEndConfirm(false)}>
+        <h3>{t('downTime.confirmEnd')}</h3>
         <div className="mt-4 flex justify-content-center gap-2">
-          <Button label="Cancel" className="p-button-danger" onClick={() => setShowEndConfirm(false)} />
-          <Button label="OK" className="p-button-success" onClick={confirmEndDowntime} />
+          <Button label={t('warningDialog.cancel')} className="p-button-danger" onClick={() => setShowEndConfirm(false)} />
+          <Button label={t('warningDialog.ok')} className="p-button-success" onClick={confirmEndDowntime} />
         </div>
       </Dialog>
 
       {/* Modal de reporte */}
-      <Dialog header="Report Down Time" visible={showReportModal} modal onHide={() => setShowReportModal(false)} style={{ width: '50vw' }}>
+      <Dialog header={t('downTime.reportTitle')} visible={showReportModal} modal onHide={() => setShowReportModal(false)} style={{ width: '50vw' }}>
         <div className="p-fluid">
           <div className="field">
-            <label>Type of Down time:</label>
-            <Dropdown value={type} options={types} onChange={(e) => setType(e.value)} placeholder="Select a type" />
+            <label>{t('downTime.typeLabel')}</label>
+            <Dropdown value={type} options={types} onChange={(e) => setType(e.value)} placeholder={t('downTime.selectType')} />
           </div>
           <div className="field">
-            <label>Cause:</label>
-            <Dropdown value={cause} options={causes} onChange={(e) => setCause(e.value)} placeholder="Select a cause" />
+            <label>{t('downTime.causeLabel')}</label>
+            <Dropdown value={cause} options={causes} onChange={(e) => setCause(e.value)} placeholder={t('downTime.selectCause')} />
           </div>
           <div className="field">
-            <label>Additional comments:</label>
+            <label>{t('downTime.commentsLabel')}</label>
             <InputTextarea value={comments} onChange={(e) => setComments(e.target.value)} rows={3} />
           </div>
           <div className="field">
-            <label>Corrective actions:</label>
+            <label>{t('downTime.actionsLabel')}</label>
             <InputTextarea value={actions} onChange={(e) => setActions(e.target.value)} rows={3} />
           </div>
           <div className="flex justify-content-end gap-2 mt-4">
-            <Button label="Cancel" className="p-button-danger" onClick={() => setShowReportModal(false)} />
-            <Button label="Save" className="p-button-success" onClick={saveDowntimeReport} />
+            <Button label={t('warningDialog.cancel')} className="p-button-danger" onClick={() => setShowReportModal(false)} />
+            <Button label={t('downTime.save')} className="p-button-success" onClick={saveDowntimeReport} />
           </div>
         </div>
       </Dialog>
