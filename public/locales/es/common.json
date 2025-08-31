@@ -7,6 +7,15 @@
     "first": "Primer Conjunto",
     "second": "Segundo Conjunto"
   },
+  "warning": "Advertencia",
+  "success": "Éxito",
+  "error": "Error",
+  "tortillas": "Tortillas",
+  "warningDialog": {
+    "title": "¡Advertencia!",
+    "cancel": "Cancelar",
+    "ok": "OK"
+  },
   "months": {
     "january": "Enero",
     "february": "Febrero",
@@ -88,5 +97,43 @@
     "actions": "Acciones",
     "produce": "Producir",
     "issue": "Emitir"
+  },
+  "productionPage": {
+    "finalizeConfirmation": "¿Estás seguro de que deseas finalizar la producción? Una vez que la Orden de Producción esté cerrada, ya no podrás agregar nuevas mezclas ni recibir productos terminados. Si estás de acuerdo, haz clic en OK; de lo contrario, haz clic en Cancelar",
+    "someComponentsNotIssued": "Algunos componentes no se han emitido. Por favor revisa los componentes relacionados con condimentos/aceite.",
+    "notEnoughDough": "No hay suficiente masa para continuar generando pallets. Por favor completa las mezclas.",
+    "productionPaused": "Producción pausada correctamente",
+    "productionPauseFailed": "Error al pausar la producción",
+    "productionResumed": "Producción reanudada correctamente",
+    "productionResumeFailed": "Error al reanudar la producción",
+    "productionStarted": "Producción iniciada correctamente",
+    "productionStartFailed": "Error al iniciar la producción",
+    "allOrdersClosed": "Todas las órdenes de producción cerradas correctamente",
+    "closeOrdersFailed": "Error al cerrar las órdenes de producción",
+    "review": "Revisar",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "addPallet": "Agregar Pallet",
+    "addMix": "Agregar Mezcla",
+    "deliveryDate": "Fecha de entrega"
+  },
+  "productionList": {
+    "orders": "Órdenes de Producción",
+    "selectStatus": "Seleccionar un Estado",
+    "searchCustomerPO": "Buscar por PO del Cliente",
+    "customerPO": "PO del Cliente",
+    "status": "Estado",
+    "sku": "SKU",
+    "productDescription": "Descripción del Producto",
+    "originPOs": "POs de Origen",
+    "mixes": "Mezclas",
+    "pallets": "Pallets",
+    "startedDate": "Fecha de Inicio",
+    "finishDate": "Fecha de Finalización",
+    "deliveryDate": "Fecha de Entrega",
+    "statusAll": "Todos",
+    "statusReleased": "Liberado",
+    "statusOpen": "Abierto",
+    "statusClose": "Cerrado"
   }
 }

@@ -7,6 +7,15 @@
     "first": "First Dataset",
     "second": "Second Dataset"
   },
+  "warning": "Warning",
+  "success": "Success",
+  "error": "Error",
+  "tortillas": "Tortillas",
+  "warningDialog": {
+    "title": "Warning!",
+    "cancel": "Cancel",
+    "ok": "OK"
+  },
   "months": {
     "january": "January",
     "february": "February",
@@ -88,5 +97,43 @@
     "actions": "Actions",
     "produce": "Produce",
     "issue": "Issue"
+  },
+  "productionPage": {
+    "finalizeConfirmation": "Are you sure you want to finalize the production? Once the Production Order is closed, you will no longer be able to add new mixes or receive finished goods. If you agree, click OK; otherwise, click Cancel",
+    "someComponentsNotIssued": "Some components have not been issued. Please review the components related to seasoning/oil.",
+    "notEnoughDough": "There is not enough dough quantity to continue generating pallets. Please complete mixes.",
+    "productionPaused": "Production paused successfully",
+    "productionPauseFailed": "Failed to pause production",
+    "productionResumed": "Production resumed successfully",
+    "productionResumeFailed": "Failed to resume production",
+    "productionStarted": "Production started successfully",
+    "productionStartFailed": "Failed to start production",
+    "allOrdersClosed": "All production orders closed successfully",
+    "closeOrdersFailed": "Failed to close production orders",
+    "review": "Review",
+    "pause": "Pause",
+    "resume": "Resume",
+    "addPallet": "Add Pallet",
+    "addMix": "Add Mix",
+    "deliveryDate": "Delivery Date"
+  },
+  "productionList": {
+    "orders": "Production Orders",
+    "selectStatus": "Select a Status",
+    "searchCustomerPO": "Search by Customer PO",
+    "customerPO": "Customer PO",
+    "status": "Status",
+    "sku": "SKU",
+    "productDescription": "Product Description",
+    "originPOs": "Origin POs",
+    "mixes": "Mixes",
+    "pallets": "Pallets",
+    "startedDate": "Started Date",
+    "finishDate": "Finish Date",
+    "deliveryDate": "Delivery Date",
+    "statusAll": "All",
+    "statusReleased": "Released",
+    "statusOpen": "Open",
+    "statusClose": "Close"
   }
 }

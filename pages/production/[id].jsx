@@ -23,6 +23,7 @@ import combineDateAndTime from '../../utilities/functions';
 import substractTime from '../../utilities/timeBack'
 import { ProgressSpinner } from 'primereact/progressspinner';
 import formatNumber from '../../utilities/formatNumber';
+import { useTranslation } from '../../utilities/i18n';
 const ProductionOrder = () => {
 
   const router = useRouter();
@@ -44,7 +45,8 @@ const ProductionOrder = () => {
   const [restarTime, setRestarTime] = useState(null);
   const [enable, setEnable] = useState(false);
   const toast = useRef(null);
-  const [textWarning, setTextWarning] = useState('Are you sure you want to finalize the production? Once the Production Order is closed, you will no longer be able to add new mixes or receive finished goods. If you agree, click OK; otherwise, click Cancel');
+  const { t } = useTranslation();
+  const [textWarning, setTextWarning] = useState(t('productionPage.finalizeConfirmation'));
   const [isWarningVisible, setIsWarningVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -115,8 +117,8 @@ const ProductionOrder = () => {
       if (!isValid) {
           toast.current.show({
               severity: 'warn',
-              summary: 'Warning',
-              detail: 'Some components have not been issued. Please review the components related to seasoning/oil.'
+              summary: t('warning'),
+              detail: t('productionPage.someComponentsNotIssued')
           });
       }
   
@@ -331,15 +333,15 @@ const ProductionOrder = () => {
       const result = await response.json();
 
       if (response.ok) {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Production paused successfully' });
+        toast.current.show({ severity: 'success', summary: t('success'), detail: t('productionPage.productionPaused') });
         setPauseTime(elapsedFormatted);
 
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: result.message || 'An unexpected error occurred' });
+        toast.current.show({ severity: 'error', summary: t('error'), detail: result.message || t('productionPage.productionPauseFailed') });
       }
     } catch (error) {
       console.error('Error pausing production:', error);
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to pause production' });
+      toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionPage.productionPauseFailed') });
     }
 
 
@@ -379,14 +381,14 @@ const ProductionOrder = () => {
         const result = await response.json();
 
         if (response.ok) {
-          toast.current.show({ severity: 'success', summary: 'Success', detail: 'Production resumed successfully' });
+          toast.current.show({ severity: 'success', summary: t('success'), detail: t('productionPage.productionResumed') });
 
         } else {
-          toast.current.show({ severity: 'error', summary: 'Error', detail: result.message || 'An unexpected error occurred' });
+          toast.current.show({ severity: 'error', summary: t('error'), detail: result.message || t('productionPage.productionResumeFailed') });
         }
       } catch (error) {
         console.error('Error resuming production:', error);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to resume production' });
+        toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionPage.productionResumeFailed') });
       }
 
       setRestarTime(substractTime(order[0].ConsumedTime))
@@ -429,13 +431,13 @@ const ProductionOrder = () => {
         const result = await response.json();
 
         if (response.ok) {
-          toast.current.show({ severity: 'success', summary: 'Success', detail: 'Production started successfully' });
+          toast.current.show({ severity: 'success', summary: t('success'), detail: t('productionPage.productionStarted') });
         } else {
-          toast.current.show({ severity: 'error', summary: 'Error', detail: result.message || 'An unexpected error occurred' });
+          toast.current.show({ severity: 'error', summary: t('error'), detail: result.message || t('productionPage.productionStartFailed') });
         }
       } catch (error) {
         console.error('Error starting production:', error);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to start production' });
+        toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionPage.productionStartFailed') });
       }
       finally {
         setLoadingStart(false)
@@ -484,12 +486,12 @@ const ProductionOrder = () => {
       await Promise.all(promises);
   
       // Mostrar un solo mensaje de éxito cuando todas las órdenes se hayan cerrado correctamente
-      toast.current.show({ severity: 'success', summary: 'Success', detail: 'All production orders closed successfully' });
+      toast.current.show({ severity: 'success', summary: t('success'), detail: t('productionPage.allOrdersClosed') });
   
       fetchOrder(); // Actualiza los datos después de cerrar las órdenes
     } catch (error) {
       console.error('Error closing production orders:', error);
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to close production orders' });
+      toast.current.show({ severity: 'error', summary: t('error'), detail: t('productionPage.closeOrdersFailed') });
     } finally {
       setLoading(false);
     }
@@ -675,7 +677,7 @@ const ProductionOrder = () => {
       
         showIssueDialog(order);
       } else {
-        toast.current.show({ severity: 'warn', summary: 'Warning', detail: 'There is not enough dough quantity to continue generating pallets. Please complete mixes.' });
+        toast.current.show({ severity: 'warn', summary: t('warning'), detail: t('productionPage.notEnoughDough') });
 
       }
     } else {
@@ -838,7 +840,7 @@ else
       <>
         {rowData.Type === 'PO' && (
           <Button
-            label={order[0].CloseDate || order[0].IsPaused === 'Y' ? "Review" : "Produce"}
+            label={order[0].CloseDate || order[0].IsPaused === 'Y' ? t('productionPage.review') : t('productionOrder.produce')}
             className="p-button-info"
             onClick={() => handleProduceClick(rowData)}
             disabled={order[0].CloseDate ? false : (!order[0].StartTime || order[0].CloseDate)}
@@ -846,13 +848,13 @@ else
           />
         )}
         {rowData.Type === 'Item' && (
-          <Button
-            label="Issue"
-            className="p-button-warning"
-            onClick={() => showIssueDialog(rowData)}
-            disabled={!order[0].StartTime || order[0].CloseDate}
-            rounded
-          />
+            <Button
+              label={t('productionOrder.issue')}
+              className="p-button-warning"
+              onClick={() => showIssueDialog(rowData)}
+              disabled={!order[0].StartTime || order[0].CloseDate}
+              rounded
+            />
         )}
       </>
     );
@@ -875,18 +877,18 @@ else
            
             <div><b>Product No.:</b> {order[0]?.ItemCode}</div>
             <div><b>Product Description:</b> {order[0]?.ProdName}</div>
-            {order[0]?.ParentOrKid==='Kid'&&order[0].ProduccionGO && <div><b>Planned Quantity:</b>  {formatNumber(Number(order[0]?.PlannedQty))} EA ({Math.ceil(formatNumber(Number(order[0]?.PlannedQty))/order[0].UndXPallet)} Pallets)</div>}
-            {order[0]?.ParentOrKid==='Parent'&&!order[0].ProduccionGO && <div><b>Planned Quantity:</b>  {formatNumber(Number(order[0]?.PlannedQty))} EA ({Math.ceil(formatNumber(Number(order[0]?.PlannedQty))/order[0].UndXPallet)} Pallets)</div>}
-            {order[0]?.ParentOrKid=='Kid'&&!order[0].ProduccionGO && <div><b>Planned Quantity:</b>  {formatNumber(Number(order[0]?.PlannedQty))} Mixes</div>}
+            {order[0]?.ParentOrKid==='Kid'&&order[0].ProduccionGO && <div><b>{t('productionOrder.plannedQuantity')}:</b>  {formatNumber(Number(order[0]?.PlannedQty))} EA ({Math.ceil(formatNumber(Number(order[0]?.PlannedQty))/order[0].UndXPallet)} Pallets)</div>}
+            {order[0]?.ParentOrKid==='Parent'&&!order[0].ProduccionGO && <div><b>{t('productionOrder.plannedQuantity')}:</b>  {formatNumber(Number(order[0]?.PlannedQty))} EA ({Math.ceil(formatNumber(Number(order[0]?.PlannedQty))/order[0].UndXPallet)} Pallets)</div>}
+            {order[0]?.ParentOrKid=='Kid'&&!order[0].ProduccionGO && <div><b>{t('productionOrder.plannedQuantity')}:</b>  {formatNumber(Number(order[0]?.PlannedQty))} Mixes</div>}
             <div><b>Warehouse:</b> {order[0]?.Warehouse}</div>
             <div><b>Best Buy Date:</b> {formatDate(addDaysToDate(new Date(), order[0]?.BestBeforeDays))}</div>
           </div>
           <div className="p-col-12 p-md-6">
           <div><b>Status:</b> {order[0]?.Status}</div>
            
-            <div><b>Delivery Date:</b> {new Date(order[0]?.DeliveryDate).toLocaleDateString('en-US', options)}</div>
-            {!allItems && <div><b>Start Date:</b> {order[0]?.StartDate ? new Date(order[0]?.StartDate).toLocaleDateString('en-US', options) : ''}</div>}
-            {!allItems && <div><b>Finish Date:</b> {order[0]?.DueDate ? new Date(order[0]?.DueDate).toLocaleDateString('en-US', options) : ''}</div>}
+            <div><b>{t('productionPage.deliveryDate')}:</b> {new Date(order[0]?.DeliveryDate).toLocaleDateString('en-US', options)}</div>
+            {!allItems && <div><b>{t('productionOrder.startDate')}:</b> {order[0]?.StartDate ? new Date(order[0]?.StartDate).toLocaleDateString('en-US', options) : ''}</div>}
+            {!allItems && <div><b>{t('productionOrder.finishDate')}:</b> {order[0]?.DueDate ? new Date(order[0]?.DueDate).toLocaleDateString('en-US', options) : ''}</div>}
             <div><b>No. (PO):</b> {order[0]?.DocNum}</div>
             {allItems&&<div style={{'color':'#007ad9' , 'padding-top':'1rem', 'fontSize':'24px'}}><b>{order[0]?.TypeDetail === 'Pallets' ? "#Pallets "+ line +' '+ shift +':': "#Mixes "+line +' '+ shift +':'}</b>  { (order[0]?.TypeDetail === 'Mixes' ?  (mixesByShift === null ?0 :mixesByShift) : palletByShift)}</div>}
 
@@ -924,8 +926,8 @@ else
                 <>
                   {!order[0]?.StartTime && <Button label="Start" icon="pi pi-play" className="p-button-success p-mr-2" onClick={handleStartProduction} disabled={!!startTime || order[0]?.StartTime} rounded />}
                   <Button label="Close PO" icon="pi-stop-circle" className="p-button-danger" onClick={handleEndProductionClick} disabled={!order[0]?.StartTime || order[0].CloseDate} rounded />
-                  {order[0]?.IsPaused === 'N' && order[0]?.StartTime && <Button label="Pause" icon="pi pi-pause" className="p-button font-bold" onClick={handlePauseProduction} disabled={order[0]?.IsPaused === 'Y' || order[0].CloseDate} rounded />}
-                  {order[0]?.IsPaused === 'Y' && <Button label="Resume" icon="pi-reply" onClick={handleResumeProduction} disabled={order[0]?.IsPaused === 'N' || order[0].CloseDate} rounded style={{ backgroundColor: '#2196F3', borderColor: '#2196F3', color: '#fff' }} />}
+                  {order[0]?.IsPaused === 'N' && order[0]?.StartTime && <Button label={t('productionPage.pause')} icon="pi pi-pause" className="p-button font-bold" onClick={handlePauseProduction} disabled={order[0]?.IsPaused === 'Y' || order[0].CloseDate} rounded />}
+                  {order[0]?.IsPaused === 'Y' && <Button label={t('productionPage.resume')} icon="pi-reply" onClick={handleResumeProduction} disabled={order[0]?.IsPaused === 'N' || order[0].CloseDate} rounded style={{ backgroundColor: '#2196F3', borderColor: '#2196F3', color: '#fff' }} />}
                 </>
               )}
             </div>
@@ -939,7 +941,7 @@ else
               <div className='production-buttons'>
                 {/* {order[0].ProduccionGO !== 'Y' && <Button label="Product Reception" className="p-button-danger" onClick={showBatchDialog} disabled={order[0].CloseDate}  rounded/>} */}
                 <Button
-                  label={order[0]?.TypeDetail === 'Pallets' ? "Add Pallet" : "Add Mix"}
+                  label={order[0]?.TypeDetail === 'Pallets' ? t('productionPage.addPallet') : t('productionPage.addMix')}
                   className="p-order[0].button-success p-mr-2"
                   onClick={() => handleButtonClick(order)}
                   disabled={
