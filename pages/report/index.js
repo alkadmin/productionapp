@@ -8,10 +8,12 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Card } from 'primereact/card';
 import { FileText } from 'lucide-react';
+import { useTranslation } from '../../utilities/i18n';
 
 
 
 export default function FullProductionReport() {
+    const { t } = useTranslation();
     const [sessionId, setSessionId] = useState(null);
     const [summary, setSummary] = useState([]);
     const [oeeData, setOeeData] = useState([]);
@@ -35,10 +37,10 @@ export default function FullProductionReport() {
     };
 
     const TYPE_LABELS = {
-        C: 'Cleaning',
-        QA: 'Quality',
-        O: 'Operational',
-        P: 'Production'
+        C: t('report.typeLabels.C'),
+        QA: t('report.typeLabels.QA'),
+        O: t('report.typeLabels.O'),
+        P: t('report.typeLabels.P')
     };
 
     useEffect(() => {
@@ -81,39 +83,15 @@ export default function FullProductionReport() {
         }, {})
     );
 
-    // const renderTable = (title, data) => (
-    //     <>
-    //         <h4>{title}</h4>
-    //         <table className="table-report" order="1" cellPadding="3" style={{ width: '100%', marginBottom: '1.5rem' , background:'white', fontSize:'11px'}}>
-    //             <thead>
-    //                 <tr>{data[0] && Object.keys(data[0]).map(k => <th key={k}>{k}</th>)}</tr>
-    //             </thead>
-    //             <tbody>
-    //                 {data.map((row, i) => (
-    //                     <tr key={i}>{Object.entries(row).map(([key, val], j) => (
-    //                         <td key={j}>
-    //                             {key.toLowerCase().includes('date') ? formatDate(val) :
-    //                                 key.toLowerCase().includes('time') && typeof val === 'number' ? formatTime(val) : val}
-    //                         </td>
-    //                     ))}</tr>
-    //                 ))}
-    //             </tbody>
-    //         </table>
-    //     </>
-    // );
-
-
-
-
-    const renderTable = (title, data) => {
-        const keys = title.includes('Pallets')
+    const renderTable = (title, data, isPallets = false) => {
+        const keys = isPallets
             ? Object.keys(data[0] || {}).slice(0, -5)
             : Object.keys(data[0] || {});
     
         return (
             <>
                 <h4>{title}</h4>
-                <table className="table-report" order="1" cellPadding="3" style={{ width: '100%', marginBottom: '1.5rem', background: 'white', fontSize: '11px' }}>
+                <table className="table-report">
                     <thead>
                         <tr>{keys.map(k => <th key={k}>{k}</th>)}</tr>
                     </thead>
@@ -146,11 +124,11 @@ export default function FullProductionReport() {
             paddingTop: '0.5rem'
         }}>
             <div>
-                Address: {`${pallets[0]?.Street || ''}, ${pallets[0]?.City || ''}, ${pallets[0]?.ZipCode || ''}`}
+                {t('report.footer.address')}: {`${pallets[0]?.Street || ''}, ${pallets[0]?.City || ''}, ${pallets[0]?.ZipCode || ''}`}
             </div>
-            <div>Document No. FRM. PRD. 236 rev. 1</div>
-            <div>Effective Date: {new Date().toISOString().slice(0, 10)}</div>
-            <div><strong>Confidential</strong></div>
+            <div>{t('report.footer.document')}</div>
+            <div>{t('report.footer.effectiveDate')}: {new Date().toISOString().slice(0, 10)}</div>
+            <div><strong>{t('report.footer.confidential')}</strong></div>
         </div>
     );
 
@@ -211,7 +189,7 @@ export default function FullProductionReport() {
             <button onClick={exportPDF} style={{ marginRight: '10px', background: 'none', border: 'none', cursor: 'pointer' }}>
               <FileText size={18} />
             </button>
-            Production Summary - TORTS
+            {t('report.cardTitle')}
           </>
         }
       >
@@ -223,27 +201,27 @@ export default function FullProductionReport() {
                 {/* <div className='logo-img'></div> */}
                 {sessionInfo && (
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                        <div><strong>Production Date:</strong> {formatDate(sessionInfo.StartDate)}</div>
-                        <div><strong>Line:</strong> {sessionInfo.Line}</div>
-                        <div><strong>Shift:</strong> {sessionInfo.Shift}</div>
-                        <div><strong>Headcount:</strong> {sessionInfo.HeadCount}</div>
+                        <div><strong>{t('report.productionDate')}:</strong> {formatDate(sessionInfo.StartDate)}</div>
+                        <div><strong>{t('report.line')}:</strong> {sessionInfo.Line}</div>
+                        <div><strong>{t('report.shift')}:</strong> {sessionInfo.Shift}</div>
+                        <div><strong>{t('report.headcount')}:</strong> {sessionInfo.HeadCount}</div>
                     </div>
                 )}
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <div style={{ flex: 2 }}>
-                        <h4>1. Production Summary</h4>
-                        {renderTable("Summary", summary)}
+                        <h4>{t('report.section1')}</h4>
+                        {renderTable(t('report.summary'), summary)}
                         <div style={{ display: 'flex', gap: '1rem' }}>
                             <div style={{ flex: 1 }}>
-                                <h2>% OEE</h2>
+                                <h2>{t('report.oeeTitle')}</h2>
                                 <ResponsiveContainer width="100%" height={250}>
                                     <RadialBarChart
                                         cx="50%" cy="50%" innerRadius="40%" outerRadius="80%" barSize={10}
                                         data={[
-                                            { name: 'Availability', value: oee.Availability, fill: '#00C49F' },
-                                            { name: 'Performance', value: oee.Performance, fill: '#0088FE' },
-                                            { name: 'Quality', value: oee.Quality, fill: '#FFBB28' },
-                                            { name: 'OEE', value: oee.OEE, fill: '#FF4C4C' }
+                                            { name: t('report.oeeLabels.availability'), value: oee.Availability, fill: '#00C49F' },
+                                            { name: t('report.oeeLabels.performance'), value: oee.Performance, fill: '#0088FE' },
+                                            { name: t('report.oeeLabels.quality'), value: oee.Quality, fill: '#FFBB28' },
+                                            { name: t('report.oeeLabels.oee'), value: oee.OEE, fill: '#FF4C4C' }
                                         ]}
                                     >
                                         <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
@@ -253,12 +231,12 @@ export default function FullProductionReport() {
                                 </ResponsiveContainer>
                             </div>
                             <div style={{ flex: 1 }}>
-                                <h4>Downtime</h4>
+                                <h4>{t('report.downtime')}</h4>
                                 <ResponsiveContainer width="100%" height={250}>
                                     <BarChart data={downtimeByType}>
                                         <XAxis dataKey="name" />
                                         <YAxis />
-                                        <Tooltip />
+                                        <Tooltip formatter={(value) => [value, t('report.minutes')]} />
                                         <Bar dataKey="minutes" fill="#8884d8" />
                                     </BarChart>
                                 </ResponsiveContainer>
@@ -266,25 +244,25 @@ export default function FullProductionReport() {
                         </div>
                     </div>
                     <div style={{ flex: 1 }}>
-                        <h4>2. Use of Materials</h4>
-                        {renderTable("DOH Issues", issuesDOH)}
-                        {renderTable("PKG Issues", issuesPKG)}
-                        {renderTable("Other Issues", issuesOther)}
+                        <h4>{t('report.section2')}</h4>
+                        {renderTable(t('report.dohIssues'), issuesDOH)}
+                        {renderTable(t('report.pkgIssues'), issuesPKG)}
+                        {renderTable(t('report.otherIssues'), issuesOther)}
                     </div>
                 </div>
                 {renderFooter()}
             </div>
             <div ref={page2Ref} style={{ background: '#fff', padding: '1.5rem', fontSize: '12px', marginTop: '1rem' }}>
-  {renderTable("3. Mixes", mixDetails)}
-</div>
+                {renderTable(t('report.mixes'), mixDetails)}
+            </div>
 
-<div ref={page3Ref} style={{ background: '#fff', padding: '1.5rem', fontSize: '12px', marginTop: '1rem' }}>
-  {renderTable("4. Pallets", pallets)}
-</div>
+            <div ref={page3Ref} style={{ background: '#fff', padding: '1.5rem', fontSize: '12px', marginTop: '1rem' }}>
+                {renderTable(t('report.pallets'), pallets, true)}
+            </div>
 
-<div ref={page4Ref} style={{ background: '#fff', padding: '1.5rem', fontSize: '12px', marginTop: '1rem' }}>
-  {renderTable("5. Downtime Detail", downtime)}
-</div>
+            <div ref={page4Ref} style={{ background: '#fff', padding: '1.5rem', fontSize: '12px', marginTop: '1rem' }}>
+                {renderTable(t('report.downtimeDetail'), downtime)}
+            </div>
 
 </Card>
         // </div>

@@ -175,5 +175,42 @@
     "updateSuccess": "Tiempo muerto actualizado",
     "updateError": "Error al actualizar el tiempo muerto",
     "loadError": "No se pudo cargar la información del tiempo muerto"
+  },
+  "report": {
+    "typeLabels": {
+      "C": "Limpieza",
+      "QA": "Calidad",
+      "O": "Operacional",
+      "P": "Producción"
+    },
+    "cardTitle": "Resumen de Producción - TORTS",
+    "productionDate": "Fecha de Producción",
+    "line": "Línea",
+    "shift": "Turno",
+    "headcount": "Personal",
+    "section1": "1. Resumen de Producción",
+    "summary": "Resumen",
+    "oeeTitle": "% OEE",
+    "oeeLabels": {
+      "availability": "Disponibilidad",
+      "performance": "Desempeño",
+      "quality": "Calidad",
+      "oee": "OEE"
+    },
+    "downtime": "Tiempo Muerto",
+    "minutes": "Minutos",
+    "section2": "2. Uso de Materiales",
+    "dohIssues": "Problemas DOH",
+    "pkgIssues": "Problemas PKG",
+    "otherIssues": "Otros Problemas",
+    "mixes": "3. Mezclas",
+    "pallets": "4. Pallets",
+    "downtimeDetail": "5. Detalle de Tiempo Muerto",
+    "footer": {
+      "address": "Dirección",
+      "document": "No. Documento FRM. PRD. 236 rev. 1",
+      "effectiveDate": "Fecha Efectiva",
+      "confidential": "Confidencial"
+    }
   }
 }

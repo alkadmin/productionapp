@@ -175,5 +175,42 @@
     "updateSuccess": "Downtime updated",
     "updateError": "Failed to update downtime",
     "loadError": "Could not load downtime info"
+  },
+  "report": {
+    "typeLabels": {
+      "C": "Cleaning",
+      "QA": "Quality",
+      "O": "Operational",
+      "P": "Production"
+    },
+    "cardTitle": "Production Summary - TORTS",
+    "productionDate": "Production Date",
+    "line": "Line",
+    "shift": "Shift",
+    "headcount": "Headcount",
+    "section1": "1. Production Summary",
+    "summary": "Summary",
+    "oeeTitle": "% OEE",
+    "oeeLabels": {
+      "availability": "Availability",
+      "performance": "Performance",
+      "quality": "Quality",
+      "oee": "OEE"
+    },
+    "downtime": "Downtime",
+    "minutes": "Minutes",
+    "section2": "2. Use of Materials",
+    "dohIssues": "DOH Issues",
+    "pkgIssues": "PKG Issues",
+    "otherIssues": "Other Issues",
+    "mixes": "3. Mixes",
+    "pallets": "4. Pallets",
+    "downtimeDetail": "5. Downtime Detail",
+    "footer": {
+      "address": "Address",
+      "document": "Document No. FRM. PRD. 236 rev. 1",
+      "effectiveDate": "Effective Date",
+      "confidential": "Confidential"
+    }
   }
 }
