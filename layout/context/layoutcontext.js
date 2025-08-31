@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export const LayoutContext = React.createContext();
 
@@ -21,20 +22,12 @@ export const LayoutProvider = (props) => {
         menuHoverActive: false
     });
 
-    const [language, setLanguage] = useState('EN');
+    const { locale } = useRouter();
+    const [language, setLanguage] = useState(locale ? locale.toUpperCase() : 'EN');
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedLang = localStorage.getItem('language') || 'EN';
-            setLanguage(storedLang);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            localStorage.setItem('language', language);
-        }
-    }, [language]);
+        setLanguage(locale ? locale.toUpperCase() : 'EN');
+    }, [locale]);
 
     const onMenuToggle = () => {
         if (isOverlay()) {

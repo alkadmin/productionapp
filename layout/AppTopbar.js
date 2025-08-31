@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { classNames } from 'primereact/utils';
 import React, { forwardRef, useContext, useImperativeHandle, useRef, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { LayoutContext } from './context/layoutcontext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
@@ -15,6 +16,7 @@ import { Toast } from 'primereact/toast';
 
 const AppTopbar = forwardRef((props, ref) => {
     const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar, language, setLanguage } = useContext(LayoutContext);
+    const router = useRouter();
     const menubuttonRef = useRef(null);
     const topbarmenuRef = useRef(null);
     const topbarmenubuttonRef = useRef(null);
@@ -175,9 +177,7 @@ const AppTopbar = forwardRef((props, ref) => {
 
     const onLanguageChange = (e) => {
         setLanguage(e.value);
-        if (typeof window !== 'undefined') {
-            window.location.reload();
-        }
+        router.push(router.asPath, undefined, { locale: e.value.toLowerCase() });
     };
 
     return (
