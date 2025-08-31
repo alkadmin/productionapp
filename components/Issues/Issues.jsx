@@ -200,7 +200,7 @@ const Mixes = ({ id, visible, onHide, chips }) => {
                         <div
                             key={index}
                             className="p-d-flex p-ai-center p-jc-between"
-                            style={{ borderBottom: '1px solid #eee', padding: '4px 0' }}
+                            style={{ borderBottom: '1px solid var(--surface-border)', padding: '4px 0' }}
                         >
                             {Object.entries(batch).map(([key, value]) => (
                                 <div key={key} style={{ textAlign: 'center', flex: 1 }}>

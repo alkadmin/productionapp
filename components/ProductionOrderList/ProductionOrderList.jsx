@@ -230,7 +230,8 @@ const ProductionOrders = ({ type }) => {
 // Estilos en línea
 const styles = {
   header: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--primary-color)',
+    color: 'var(--primary-color-text)',
     padding: '10px',
     borderRadius: '5px',
     display: 'flex',
@@ -238,7 +239,7 @@ const styles = {
     alignItems: 'left',
   },
   title: {
-    color: '#200000',
+    color: 'var(--primary-color-text)',
     fontSize: '24px',
     fontWeight: 'bold',
   },
@@ -256,8 +257,8 @@ const styles = {
     marginTop: '20px',
   },
   tableHeader: {
-    backgroundColor: '#e3f1f1',
-    color: '#200000',
+    backgroundColor: 'var(--primary-color-light)',
+    color: 'var(--primary-color-text)',
     padding: '0.5rem',
   },
   tableBody1: {

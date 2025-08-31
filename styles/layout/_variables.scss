@@ -1,3 +1,17 @@
 /* General */
-$borderRadius:12px;             /* border radius of layout element e.g. card, sidebar */ 
-$transitionDuration:.2s;        /* transition duration of layout elements e.g. sidebar, overlay menus */ 
+$borderRadius:12px;             /* border radius of layout element e.g. card, sidebar */
+$transitionDuration:.2s;        /* transition duration of layout elements e.g. sidebar, overlay menus */
+
+:root {
+    --primary-color: #1E88E5;
+    --primary-color-text: #ffffff;
+    --primary-color-hover: #1565C0;
+    --primary-color-light: #BBDEFB;
+}
+
+[data-theme='dark'] {
+    --primary-color: #90CAF9;
+    --primary-color-text: #000000;
+    --primary-color-hover: #1E88E5;
+    --primary-color-light: #E3F2FD;
+}

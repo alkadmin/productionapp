@@ -34,7 +34,7 @@
             text-transform: uppercase;
             font-weight: 700;
             // color: var(--surface-900);
-            color: white;
+            color: var(--primary-color-text);
             margin: .75rem 0;
         }
 
@@ -94,7 +94,7 @@
 
             &:hover {
                 // background-color: var(--surface-hover);
-                background-color: rgba(0, 0, 0, 0.7);
+                background-color: var(--primary-color-hover);
             }
 
             &:focus {
@@ -167,6 +167,6 @@
 }
 
 .layout-menuitem-text{
-    color: white;
-   
+    color: var(--primary-color-text);
+
 }
