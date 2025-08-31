@@ -1,0 +1,19 @@
+{
+  "welcome": "Welcome {{name}}",
+  "today": "Today",
+  "isHappy": "is Happy",
+  "logout": "logout",
+  "dataset": {
+    "first": "First Dataset",
+    "second": "Second Dataset"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July"
+  }
+}

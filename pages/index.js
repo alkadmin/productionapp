@@ -9,38 +9,49 @@ import { LayoutContext } from '../layout/context/layoutcontext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Toast } from 'primereact/toast';
-const lineData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-        {
-            label: 'First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            backgroundColor: '#2f4860',
-            borderColor: '#2f4860',
-            tension: 0.4
-        },
-        {
-            label: 'Second Dataset',
-            data: [28, 48, 40, 19, 86, 27, 90],
-            fill: false,
-            backgroundColor: '#00bb7e',
-            borderColor: '#00bb7e',
-            tension: 0.4
-        }
-    ]
-};
+import { useTranslation } from '../utilities/i18n';
 
 const Dashboard = () => {
+    const { t } = useTranslation();
     const [products, setProducts] = useState(null);
     const menu1 = useRef(null);
     const menu2 = useRef(null);
-    const [lineOptions, setLineOptions] = useState(null);    
-    const [logged, setLogged] = useState('');    
+    const [lineOptions, setLineOptions] = useState(null);
+    const [logged, setLogged] = useState('');
     const { layoutConfig } = useContext(LayoutContext);
-   
+
     const toast = useRef(null);
     const router = useRouter();
+
+    const lineData = {
+        labels: [
+            t('months.january'),
+            t('months.february'),
+            t('months.march'),
+            t('months.april'),
+            t('months.may'),
+            t('months.june'),
+            t('months.july')
+        ],
+        datasets: [
+            {
+                label: t('dataset.first'),
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                backgroundColor: '#2f4860',
+                borderColor: '#2f4860',
+                tension: 0.4
+            },
+            {
+                label: t('dataset.second'),
+                data: [28, 48, 40, 19, 86, 27, 90],
+                fill: false,
+                backgroundColor: '#00bb7e',
+                borderColor: '#00bb7e',
+                tension: 0.4
+            }
+        ]
+    };
 
     const applyLightTheme = () => {
         const lineOptions = {
@@ -159,12 +170,12 @@ const Dashboard = () => {
             <div className="col-12 ">
                 <div className="card mb-0">
                     <div className="flex justify-content-between mb-3">
-                        <h1>Welcome {logged}</h1>
+                        <h1>{t('welcome', { name: logged })}</h1>
                     </div>
-                    <span className="text-green-500 font-medium">Today </span>
-                    <span className="text-500">is Happy</span>
+                    <span className="text-green-500 font-medium">{t('today')} </span>
+                    <span className="text-500">{t('isHappy')}</span>
 
-                    <div className="text-blue-500 font-medium mt-5" onClick={()=>logout()}>logout </div>
+                    <div className="text-blue-500 font-medium mt-5" onClick={() => logout()}>{t('logout')} </div>
 
                 </div>
             </div>

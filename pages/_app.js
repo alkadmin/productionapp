@@ -4,6 +4,7 @@ import { LayoutProvider } from '../layout/context/layoutcontext';
 import Layout from '../layout/layout';
 import { Toast } from 'primereact/toast';
 import ProductionGuard from '../components/ProductionGuard/ProductionGuard'; // ✅ Importa aquí
+import { I18nProvider } from '../utilities/i18n';
 
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
@@ -48,21 +49,25 @@ export default function MyApp({ Component, pageProps }) {
             return null;
         }
         return (
-            <LayoutProvider>
-                <Toast ref={toast} position="top-right" />
-                <ProductionGuard /> {/* ✅ Se renderiza aquí */}
-                {Component.getLayout(<Component {...pageProps} />)}
-            </LayoutProvider>
+            <I18nProvider>
+                <LayoutProvider>
+                    <Toast ref={toast} position="top-right" />
+                    <ProductionGuard /> {/* ✅ Se renderiza aquí */}
+                    {Component.getLayout(<Component {...pageProps} />)}
+                </LayoutProvider>
+            </I18nProvider>
         );
     } else {
         return (
-            <LayoutProvider>
-                <Layout>
-                    <Toast ref={toast} position="top-right" />
-                    <ProductionGuard /> {/* ✅ También aquí */}
-                    {showChild && <Component {...pageProps} />}
-                </Layout>
-            </LayoutProvider>
+            <I18nProvider>
+                <LayoutProvider>
+                    <Layout>
+                        <Toast ref={toast} position="top-right" />
+                        <ProductionGuard /> {/* ✅ También aquí */}
+                        {showChild && <Component {...pageProps} />}
+                    </Layout>
+                </LayoutProvider>
+            </I18nProvider>
         );
     }
 }
