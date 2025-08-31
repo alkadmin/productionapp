@@ -21,15 +21,15 @@
 }
 
 .custom-brown-button {
-    background-color: #795548; /* Color marrón */
-    color: #fff; /* Color del texto blanco */
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
     border: none; /* Sin borde */
     border-radius: 8px; /* Bordes redondeados */
     transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
 }
 
 .custom-brown-button:hover {
-    background-color: #6d4c41; /* Color marrón más oscuro al pasar el ratón */
+    background-color: var(--primary-color-hover);
 }
 
 .p-dropdown-label{
@@ -48,7 +48,7 @@
 
 .mixes-line{
     // font-size: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--surface-border);
 }
 
 .mixes-line-header{
@@ -61,7 +61,7 @@
 }
 
 .icon-white {
-    color: white !important;
+    color: var(--primary-color-text) !important;
 }
 
 .p-inputgroup-addon{
@@ -70,7 +70,7 @@
 
 
 .p-datatable-thead{
-    background-color: #e3f1f1;
+    background-color: var(--primary-color-light);
 }
 
 

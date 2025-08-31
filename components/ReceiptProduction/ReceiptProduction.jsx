@@ -869,13 +869,13 @@ const styles = {
         textAlign: 'left',
     },
     label: {
-        color: 'black',
+        color: 'var(--text-color)',
         fontWeight: 'bold',
         marginBottom: '2.5rem',
         display: 'block',
     },
     text: {
-        color: '#333',
+        color: 'var(--text-color)',
         fontSize: '15px',
         marginBottom: '1.5rem',
         display: 'block',

@@ -16,24 +16,24 @@ const styles = {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#f8f9fa",
+        backgroundColor: "var(--primary-color-light)",
         padding: "8px 15px",
         borderRadius: "5px",
         fontSize: "14px",
         fontWeight: "500",
-        border: "1px solid #dee2e6",
+        border: "1px solid var(--surface-border)",
         minHeight: "40px"
     },
     inputContainer: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--primary-color-text)",
         padding: "8px 15px",
         borderRadius: "5px",
         fontSize: "14px",
         fontWeight: "500",
-        border: "1px solid #dee2e6",
+        border: "1px solid var(--surface-border)",
         minHeight: "40px"
     },
     label: {
@@ -45,7 +45,7 @@ const styles = {
         width: "60%",
         padding: "5px",
         borderRadius: "5px",
-        border: "1px solid #ccc"
+        border: "1px solid var(--surface-border)"
     }
 };
 

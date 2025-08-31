@@ -588,7 +588,8 @@ const ProductionOrders = ({ type }) => {
 // Estilos en línea
 const styles = {
   header: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--primary-color)',
+    color: 'var(--primary-color-text)',
     padding: '10px',
     borderRadius: '5px',
     display: 'flex',
@@ -596,7 +597,7 @@ const styles = {
     alignItems: 'left',
   },
   title: {
-    color: '#200000',
+    color: 'var(--primary-color-text)',
     fontSize: '24px',
     fontWeight: 'bold',
   },
@@ -607,21 +608,21 @@ const styles = {
     marginTop: '20px',
   },
   tableHeader: {
-    backgroundColor: '#e3f1f1',
-    color: '#200000',
+    backgroundColor: 'var(--primary-color-light)',
+    color: 'var(--primary-color-text)',
     padding: '0.5rem'
   },
   tableBody: {},
   expansionTable: {
     marginTop: '10px',
     borderRadius: '5px',
-    backgroundColor: '#f4f4f4',
+    backgroundColor: 'var(--primary-color-light)',
     padding: '10px',
     fontSize: '11px'
   },
   expansionTableHeader: {
-    backgroundColor: '#cce5ff',
-    color: '#004085',
+    backgroundColor: 'var(--primary-color-light)',
+    color: 'var(--primary-color)',
     padding: '0.5rem',
     fontSize: '11px'
   },
@@ -633,8 +634,8 @@ const styles = {
     // height: '4.5vh',
   },
   ungroupButton: {
-    backgroundColor: 'red',
-    color: 'white',
+    backgroundColor: 'var(--primary-color)',
+    color: 'var(--primary-color-text)',
   },
   
 };
